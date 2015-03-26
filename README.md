@@ -9,3 +9,12 @@ int main() {
 	return 0;
 }
 ```
+
+###A simple Java code example
+``` java
+public class {
+	public static void main(string s[]) {
+		system.out.println("Hello World!\n");	
+	}
+}
+```
