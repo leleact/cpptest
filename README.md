@@ -12,7 +12,7 @@ int main() {
 ######A simple Java code example
 ``` java
 public class main {
-	public static void main(string s[]) {
+	public static void main(string[] args) {
 		system.out.println("Hello World!\n");	
 	}
 }
