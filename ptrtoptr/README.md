@@ -21,3 +21,8 @@ int movestr(char **s, int n) {
 	return 0;
 }
 ```
+``` bash
+gcc movestr.c -o movestr
+./movestr
+ptr = [o World]
+```
