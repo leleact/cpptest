@@ -1,7 +1,6 @@
-#README
-##My first repository for test git
+#My first repository for test git
 
-###A simple C code example
+######A simple C code example
 ``` c
 #include <stdio.h>
 int main() {
@@ -10,9 +9,9 @@ int main() {
 }
 ```
 
-###A simple Java code example
+######A simple Java code example
 ``` java
-public class {
+public class main {
 	public static void main(string s[]) {
 		system.out.println("Hello World!\n");	
 	}
