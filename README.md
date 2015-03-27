@@ -4,7 +4,7 @@
 ``` c
 #include <stdio.h>
 int main() {
-	printf("Hello World!\n");
+	printf("Hello Git!\n");
 	return 0;
 }
 ```
@@ -13,7 +13,7 @@ int main() {
 ``` java
 public class main {
 	public static void main(String[] args) {
-		System.out.println("Hello World!");	
+		System.out.println("Hello Git!");	
 	}
 }
 ```
