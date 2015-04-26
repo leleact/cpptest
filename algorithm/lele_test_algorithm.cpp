@@ -47,7 +47,6 @@ int main(int argc, char **argv) {
 }
 
 void bubble_sort(int *array, int n) {
-//	printf_array(array, 10);
 	for(int i = 0; i < n; ++i) {
 		for (int j = 0; j < n - i - 1; ++j)	{
 			if (array[j] > array[j + 1]) {
@@ -57,7 +56,6 @@ void bubble_sort(int *array, int n) {
 			}
 		}
 	}
-//	printf_array(array, 10);
 }
 
 void printf_array(int *array, int n) {
