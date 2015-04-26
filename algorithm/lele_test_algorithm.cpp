@@ -43,7 +43,7 @@ int main(int argc, char **argv) {
 	}
 	gettimeofday(&end, NULL);
 	writetofile(Testarray, MAXLEN, outFileName2);
-	printf("%.6lf\n", end.tv_sec - start.tv_sec + (double)(end.tv_usec - start.tv_usec)/1000000);
+	cout << setprecision(6) << end.tv_sec - start.tv_sec + (double)(end.tv_usec - start.tv_usec)/1000000 << endl;
 }
 
 void bubble_sort(int *array, int n) {
