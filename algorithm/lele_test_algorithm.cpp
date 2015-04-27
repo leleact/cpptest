@@ -10,6 +10,7 @@ void bubble_sort(int *, int);
 void printf_array(int *, int);
 void swap(int *, int *);
 void writetofile(int *, int, char *);
+void insert_sort_des(int *, int);
 
 #define MAXLEN 10000
 #define CYCTIMES 1
@@ -79,4 +80,16 @@ void writetofile(int *array, int n, char *str) {
 	}
 
 	file.close();
+}
+
+void insert_sort_des(int *array, int n) {
+	for (int i = 1; i < n; ++i) {
+		int key = array[i];
+		int j = i - 1;
+		while (j >= 0 && array[j] > key) {
+			array[j + 1] = array[j];
+			--j;
+		}
+		array[j + 1] = key;
+	}
 }
