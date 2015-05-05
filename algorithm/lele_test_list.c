@@ -11,7 +11,7 @@ typedef struct node {
 void AddElement(Node *, int);
 void PrintList(Node *);
 
-int main(int argc, char **argv) {
+int main() {
 	Node root;
 	memset(&root, 0x00, sizeof(Node));
 
