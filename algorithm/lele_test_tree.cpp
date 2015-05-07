@@ -18,6 +18,9 @@ Node<T> * BuildTree(vector<T> &, int);
 template <typename T = int>
 void PrintTreeByLevel(Node<T> *);
 
+template<typename T>
+int DeepOfTheTree(Node<T> *);
+
 int main() {
   vector<int> vec;
   vec.push_back(9);
@@ -71,4 +74,16 @@ void PrintTreeByLevel(Node<T> *pNode) {
 
     cout << endl;
   }
+}
+
+template<typename T>
+int DeepOfTheTree(Node<T> *pNode) {
+  if (nullptr == pNode)
+    return 0;
+
+  int deep_left_tree = DeepOfTheTree(pNode->pLeft);
+  int deep_right_tree = DeepOfTheTree(pNode->pRight);
+  int deep = deep_left_tree > deep_right_tree ? deep_left_tree : deep_right_tree;
+
+  return deep + 1;
 }
