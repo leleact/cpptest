@@ -31,6 +31,8 @@ int main() {
   int index = 1;
   Node<int> *pRoot = BuildTree<int>(vec, index);
   PrintTreeByLevel(pRoot);
+  int deep = DeepOfTheTree(pRoot);
+  cout << "Deep of The Tree : " << deep << endl;
 
   return 0;
 }
