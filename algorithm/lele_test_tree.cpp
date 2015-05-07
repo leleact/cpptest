@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <vector>
+#include <queue>
 using namespace std;
 
 template <typename T>
@@ -21,6 +22,15 @@ void PrintTreeByLevel(Node<T> *);
 template<typename T>
 int DeepOfTheTree(Node<T> *);
 
+template<typename T>
+void PreOrderTree(Node<T> *pNode);
+
+template<typename T>
+void InOrderTree(Node<T> *pNode);
+
+template<typename T>
+void PostOrderTree(Node<T> *pNode);
+
 int main() {
   vector<int> vec;
   vec.push_back(9);
@@ -33,6 +43,13 @@ int main() {
   PrintTreeByLevel(pRoot);
   int deep = DeepOfTheTree(pRoot);
   cout << "Deep of The Tree : " << deep << endl;
+
+  PreOrderTree(pRoot);
+  cout << endl;
+  InOrderTree(pRoot);
+  cout << endl;
+  PostOrderTree(pRoot);
+  cout << endl;
 
   return 0;
 }
@@ -88,4 +105,34 @@ int DeepOfTheTree(Node<T> *pNode) {
   int deep = deep_left_tree > deep_right_tree ? deep_left_tree : deep_right_tree;
 
   return deep + 1;
+}
+
+
+template<typename T>
+void PreOrderTree(Node<T> *pNode) {
+  if (nullptr == pNode)
+    return;
+  cout << pNode->data << " ";
+  PreOrderTree(pNode->pLeft);
+  PreOrderTree(pNode->pRight);
+}
+
+template<typename T>
+void InOrderTree(Node<T> *pNode) {
+  if (nullptr == pNode)
+    return;
+
+  InOrderTree(pNode->pLeft);
+  cout << pNode->data << " ";
+  InOrderTree(pNode->pRight);
+}
+
+template<typename T>
+void PostOrderTree(Node<T> *pNode) {
+  if (nullptr == pNode)
+    return;
+
+  PostOrderTree(pNode->pLeft);
+  PostOrderTree(pNode->pRight);
+  cout << pNode->data << " ";
 }
