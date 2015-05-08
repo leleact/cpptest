@@ -87,7 +87,7 @@ Node<T> * BuildTree(vector<T> &vec, int index) {
   return p_node;
 }
 
-// 分层遍历 
+// 分层遍历
 template<typename T>
 void PrintTreeByLevel(Node<T> *p_node) {
   vector<Node<T> *> vec;
@@ -98,7 +98,7 @@ void PrintTreeByLevel(Node<T> *p_node) {
   vec.push_back(p_node);
   unsigned long  cur = 0;
   unsigned long  last = 1;
-  while(cur < vec.size()) {  
+  while(cur < vec.size()) {
     last = vec.size();
     while(cur < last) {
       cout << vec[cur]->data << " " ;
@@ -109,7 +109,6 @@ void PrintTreeByLevel(Node<T> *p_node) {
         vec.push_back(vec[cur]->pright_child);
       cur++;
     }
-
     cout << endl;
   }
 }
@@ -161,10 +160,10 @@ void PreOrderTreeByLoop(Node<T> *p_node) {
   if (nullptr == p_node)
     return;
 
-  stack<Node<T> *> node_stack; 
+  stack<Node<T> *> node_stack;
   while(!node_stack.empty() || p_node) {
     while(p_node) {
-      cout << p_node->data << " "; 
+      cout << p_node->data << " ";
       node_stack.push(p_node);
       p_node = p_node->pleft_child;
     }
@@ -184,12 +183,12 @@ void InOrderTreeByLoop(Node<T> *p_node) {
   stack<Node<T> *> node_stack;
   while(p_node || !node_stack.empty()) {
     while(p_node) {
-      node_stack.push(p_node); 
+      node_stack.push(p_node);
       p_node = p_node->pleft_child;
     }
 
     if (!node_stack.empty()) {
-      p_node = node_stack.top(); 
+      p_node = node_stack.top();
       cout << p_node->data << " ";
       node_stack.pop();
       p_node = p_node->pright_child;
@@ -205,11 +204,11 @@ void PostOrderTreeByLoop(Node<T> *p_node) {
   Node<T> *pre = nullptr;
   while(p_node || !node_stack.empty()) {
     while(p_node) {
-      node_stack.push(p_node); 
+      node_stack.push(p_node);
       p_node = p_node->pleft_child;
     }
 
-    p_node = node_stack.top(); 
+    p_node = node_stack.top();
     if (p_node->pright_child == nullptr || p_node->pright_child == pre) {
       cout << p_node->data << " ";
       node_stack.pop();
