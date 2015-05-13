@@ -3,9 +3,9 @@
 int main() {
 	char s[5];
 
-	//memcpy(s, "Hello", 5); //Hell
-	memcpy(s, "Hello", 10); //CoreDump
+//	memcpy(s, "Hello", 5 );    //Hell
+	memcpy(s, "Hello", 10);    //CoreDump
 
 	printf("s = [%s]\n", s);
-
+	return 0;
 }
