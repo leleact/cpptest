@@ -1,9 +1,7 @@
 #include <iostream>
 #include <cstring>
-
 using namespace std;
-
-int main(int argc, char *argv[]) {
+int main(int argc, char **argv) {
 
 	char s[] = "Hello World";
 	char des[10];
