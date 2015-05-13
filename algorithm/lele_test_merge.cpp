@@ -10,7 +10,7 @@ template<typename T, size_t arr_size>
 void PrintArr(T (&)[arr_size], int, int);
 
 int main() {
-  const int kmaxsize = 10;
+  const int kmaxsize = 255;
   int arr[kmaxsize];
   for (int i = 0; i < kmaxsize; ++i) {
     arr[i] = i;
