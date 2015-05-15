@@ -76,10 +76,10 @@ int MyStringTest();
 
 int main() {
   MyStringTest();
+//  InitVectorTest();
 }
 
 int MyStringTest() {
-//  InitVectorTest();
 /*
   MyString s1 = "a";
   cout << "=======================================" << endl;
