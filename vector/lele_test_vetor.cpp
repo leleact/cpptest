@@ -75,8 +75,8 @@ int ShowVectorElement(vector<T> &);
 int MyStringTest();
 
 int main() {
-  MyStringTest();
 //  InitVectorTest();
+  MyStringTest();
 }
 
 int MyStringTest() {
