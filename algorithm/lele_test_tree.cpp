@@ -41,23 +41,32 @@ void InOrderTreeByLoop(Node<T> *p_node);
 template<typename T>
 void PostOrderTreeByLoop(Node<T> *p_node);
 
-int main() {
+int main(int argc, char **argv) {
   vector<int> vec;
-  vec.push_back(9);
-  vec.push_back(5);
-  vec.push_back(8);
-  vec.push_back(2);
-  vec.push_back(7);
-  int index = 1;
+  const int vec_size = 20;
+  for (int i = 0; i < vec_size; ++i) {
+    vec.push_back(i);
+  }
+
+  srand(time(nullptr));
+  int index = 0;
+  for (int i = vec_size - 1; i > 0; --i) {
+    index = rand() % 2; 
+    swap(vec[i], vec[index]);
+  }
+  index = 1;
   Node<int> *proot = BuildTree<int>(vec, index);
   PrintTreeByLevel(proot);
   int deep = DeepOfTheTree(proot);
   cout << "Deep of The Tree : " << deep << endl;
 
+  cout << "先序遍历: ";
   PreOrderTree(proot);
   cout << endl;
+  cout << "中序遍历: ";
   InOrderTree(proot);
   cout << endl;
+  cout << "后序遍历: ";
   PostOrderTree(proot);
   cout << endl;
   cout << "先序遍历: ";
