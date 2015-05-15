@@ -75,12 +75,11 @@ int ShowVectorElement(vector<T> &);
 int MyStringTest();
 
 int main() {
-  // ..
+//  InitVectorTest();
   MyStringTest();
 }
 
 int MyStringTest() {
-//  InitVectorTest();
 /*
   MyString s1 = "a";
   cout << "=======================================" << endl;
