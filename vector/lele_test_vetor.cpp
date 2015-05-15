@@ -60,6 +60,11 @@ public:
     data = nullptr;
   }
 
+  friend ostream &operator << (ostream &os, MyString &s) {
+    os << s.c_str(); 
+    return os;
+  }
+
 private:
   char *data;
 };
@@ -67,17 +72,68 @@ private:
 int InitVectorTest();
 template<typename T>
 int ShowVectorElement(vector<T> &);
+int MyStringTest();
 
 int main() {
-  InitVectorTest();
+  MyStringTest();
+}
+
+int MyStringTest() {
+//  InitVectorTest();
+/*
+  MyString s1 = "a";
+  cout << "=======================================" << endl;
+  MyString s2 = s1;
+  cout << "=======================================" << endl;
+
+  MyString s3;
+  MyString s4;
+  s3 = "bb";
+  s4 = s3;
+
+  cout << "=======================================" << endl;
+*/
+
+  vector<MyString> svec{"a", "b", "c"};
+  ShowVectorElement(svec);
+  return 0;
+}
+
+template<typename T>
+int ShowVectorElement(vector<T> &vec) {
+  for (typename vector<T>::iterator it = vec.begin(); it != vec.end(); ++it) {
+    cout << *it << " "; 
+  }
+
+  cout << "size : " << vec.size();
+  cout << endl;
 
   return 0;
 }
 
 int InitVectorTest() {
   vector<int> ivec;
+  vector<MyString> MyString_vec;
+  vector<vector<string>> file;
   vector<int> ivec2(ivec);
   vector<int> ivec3 = ivec;
+  vector<string> articles = {"a", "an", "the"};
+  vector<int> ivec4(10, -1); // 10个元素, 每个元素都被初始化为-1;
+  vector<string> svec(10, "hi!"); //10个元素, 每个元素都被初始化为"hi!"
+
+  vector<int> v1(10); // 10 elements with value 0;
+  vector<int> v2{10}; // 1 element with value 10;
+  vector<int> v3(10, 1); // 10 elements with value 1;
+  vector<int> v4{10, 1}; // 2 elements with value 10 and 1
+
+  vector<string> v5{"hi"}; // list initalization: v5 has 1 elements with value "hi";
+  //vector<string> v6("hi");
+  vector<string> v7{10};
+  vector<string> v7_1(10);
+  vector<string> v8{10, "a"};
+  ShowVectorElement(v7);
+  ShowVectorElement(v7_1);
+  ShowVectorElement(v8);
 
   return 0;
 }
