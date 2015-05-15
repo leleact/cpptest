@@ -1,7 +1,24 @@
 #include <iostream>
 #include <string>
-using std::string;
+using namespace std;
+int InitString(int, char **);
+int LoopString(int, char **);
+
 int main(int argc, char **argv) {
+  InitString(argc, argv);
+  LoopString(argc, argv);
+  return 0;
+}
+
+int LoopString(int argc, char **argv) {
+  const string str = "Hello World";
+  for (auto &c : str)
+    cout << c << endl;
+
+  return 0;
+}
+
+int InitString(int argc, char **argv) {
   //Initialize string
   string s1;
   string s2 = s1;
