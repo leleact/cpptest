@@ -1,4 +1,5 @@
 #include <iostream>
+#include <climits>
 using namespace std;
 template<typename T, size_t arr_size>
 void Merge(T (&)[arr_size], int, int, int);
@@ -8,6 +9,8 @@ void MergeSort(T (&)[arr_size], int, int);
 
 template<typename T, size_t arr_size>
 void PrintArr(T (&)[arr_size], int, int);
+
+int g_T_max = (1 << 31) - 1;
 
 int main() {
   const int kmaxsize = 255;
@@ -47,8 +50,8 @@ void Merge(T (&arr)[arr_size], int p, int q, int r) {
     right_arr[i]  = arr[q + i + 1];
   }
 
-  left_arr[n1] = (1 << 31) - 1;
-  right_arr[n2] = (1 << 31) - 1;
+  left_arr[n1] = g_T_max;
+  right_arr[n2] = g_T_max;
 
   int i = 0;
   int j = 0;
