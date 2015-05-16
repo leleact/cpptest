@@ -10,18 +10,11 @@ public:
   X() = default;
   X(const string &s) : s(s) {};
   X(const char *p) {
-#ifdef DEBUG
-    std::cout << "const char *p" << std::endl;
-#endif
-    s = std::move(string(p)); 
+    s = p;
   }
-  X(string &&s) : s(std::move(s)) {
-#ifdef DEBUG
-    std::cout << "string && move" << std::endl;
-#endif
-  }
+  X(string &&s) : s(s) {}
   X(const X &x) : s(x.s) {}
-  X(X&& x) : s(std::move(x.s)) {
+  X(X&& x) noexcept : s(std::move(x.s)) {
 #ifdef DEBUG
     std::cout << "X&& move" << std::endl;
 #endif
@@ -31,7 +24,9 @@ public:
     return *this;
   }
   X& operator=(X&& x) {
-    s = std::move(x.s);
+    if (this != &x) {
+      s = x.s;
+    }
     return *this;
   }
 
