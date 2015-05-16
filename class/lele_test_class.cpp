@@ -42,19 +42,25 @@ struct Base {
 };
 
 struct Derived1 : public Base {
-  void func() const {
+  void func() const override {
     std::cout << "Deriv1 func" << std::endl; 
   }
 };
 
 struct Derived2 : public Base {
-  void func() const {
+  void func() const override {
     std::cout << "Deriv2 func" << std::endl; 
   }
 };
 
 void Func(const Base &b) {
+  std::cout << "const Base &" << " ";
   b.func();
+}
+
+void Func(const Base *pb) {
+  std::cout << "const Base *pb" << " ";
+  pb->func();
 }
 
 int XTest();
@@ -74,6 +80,14 @@ int ClassTest() {
   Func(b);
   Func(b1);
   Func(b2);
+
+  Base *pb = new Base();
+  Base *pb1 = new Derived1();
+  Base *pb2 = new Derived2();
+
+  Func(pb);
+  Func(pb1);
+  Func(pb2);
 
   return 0;
 }
