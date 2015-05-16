@@ -73,13 +73,17 @@ int main() {
 }
 
 int ClassTest() {
-  Base b = Base();
-  Base b1 = Derived1();
-  Base b2 = Derived2();
+  Base b;
+  Derived1 b1;
+  Derived2 b2;
 
   Func(b);
   Func(b1);
   Func(b2);
+
+  Func(Base());
+  Func(Derived1());
+  Func(Derived2());
 
   Base *pb = new Base();
   Base *pb1 = new Derived1();
