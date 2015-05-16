@@ -12,7 +12,7 @@ public:
   X(const char *p) {
     s = p;
   }
-  X(string &&s) : s(s) {}
+  X(string &&s) : s(std::move(s)) {}
   X(const X &x) : s(x.s) {}
   X(X&& x) noexcept : s(std::move(x.s)) {
 #ifdef DEBUG
@@ -25,7 +25,7 @@ public:
   }
   X& operator=(X&& x) {
     if (this != &x) {
-      s = x.s;
+      s = std::move(x.s);
     }
     return *this;
   }
