@@ -2,6 +2,7 @@
 #include <string>
 #include <utility>
 #include <memory>
+#include <algorithm>
 class StrVec {
 public:
   StrVec() : elements(nullptr), first_free(nullptr), cap(nullptr) {}
@@ -99,10 +100,17 @@ int main() {
   svec.push_back("bbb");
   svec.push_back("ccc");
 
+  /**
+   * test the lambda expression, comment the regular scope of the strvec
+   */
+  /*
   for (auto it = svec.begin(); it != svec.end(); ++it) {
     std::cout << *it << " ";
   }
   std::cout << "size of svec is : "  << svec.size() << std::endl;
+  */
+
+  std::for_each(svec.begin(), svec.end(), [](std::string &s) { std::cout << s << std::endl;}); 
 
   return 0;
 }
