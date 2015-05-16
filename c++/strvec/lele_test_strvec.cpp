@@ -95,5 +95,14 @@ StrVec &StrVec::operator=(StrVec &&rhs) noexcept {
 int main() {
   StrVec svec;
 
+  svec.push_back("aaa");
+  svec.push_back("bbb");
+  svec.push_back("ccc");
+
+  for (auto it = svec.begin(); it != svec.end(); ++it) {
+    std::cout << *it << " ";
+  }
+  std::cout << "size of svec is : "  << svec.size() << std::endl;
+
   return 0;
 }
