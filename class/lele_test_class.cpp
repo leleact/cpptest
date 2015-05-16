@@ -36,24 +36,24 @@ struct Date {
 };
 
 struct Base {
-  virtual void func() {
+  virtual void func() const {
     std::cout << "Base func" << std::endl;
   }
 };
 
-struct Deriv1 : public Base {
-  void func() {
+struct Derived1 : public Base {
+  void func() const {
     std::cout << "Deriv1 func" << std::endl; 
   }
 };
 
-struct Deriv2 : public Base {
-  void func() {
+struct Derived2 : public Base {
+  void func() const {
     std::cout << "Deriv2 func" << std::endl; 
   }
 };
 
-void Func(Base &b) {
+void Func(const Base &b) {
   b.func();
 }
 
@@ -68,8 +68,8 @@ int main() {
 
 int ClassTest() {
   Base b = Base();
-  Base b1 = Deriv1();
-  Base b2 = Deriv2();
+  Base b1 = Derived1();
+  Base b2 = Derived2();
 
   Func(b);
   Func(b1);
