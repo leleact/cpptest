@@ -2,9 +2,8 @@
 #include <utility>
 #include <vector>
 #include <iomanip>
-#define USING_CLASS_X
 #define DEBUG
-#ifdef USING_CLASS_X
+#ifndef USING_STD_STRING
 class X {
 using string = std::string;
 public:
