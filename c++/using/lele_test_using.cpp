@@ -1,9 +1,11 @@
 #include <iostream>
 #include <string>
+namespace vacp {
 template<typename T1, typename T2 = int>
 struct Base {
   Base() = default;
-  Base(const T1 &t1, const T2 &t2) : type1_value(t1), type2_value(t2) {}
+  Base(const T1 &t1, const T2 &t2) : type1_value(t1), type2_value(t2) { std::cout << "lvalue constructor\n";}
+  Base(const T1 &&t1, const T2 &&t2) : type1_value(t1), type2_value(t2) {std::cout << "rvalue constructor\n";}
   T1 type1_value;
   T2 type2_value;
   friend std::ostream& operator<<(std::ostream &os, Base &b) {
@@ -11,9 +13,10 @@ struct Base {
     return os;
   }
 };
+}
 
 template<typename T1, typename T2 = int>
-using B = Base<T1, T2>;
+using B = vacp::Base<T1, T2>;
 
 int main() {
   B<std::string> b;
