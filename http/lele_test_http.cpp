@@ -46,7 +46,7 @@ int main(int argc, char **argv) {
   }
 
   char strbuff[buff_size];
-  std::sprintf(strbuff, "GET / HTTP/1.1\nHost:www.qq.com\n\n");
+  std::sprintf(strbuff, "GET / HTTP/1.1\n""Host:%s""\n\n", argv[1]);
   std::size_t n = write(sock_fd, strbuff, strlen(strbuff));
   if (!n) {
     std::cerr << "write error" << std::endl; 
@@ -54,7 +54,8 @@ int main(int argc, char **argv) {
   }
 
   while(read(sock_fd, strbuff, 1024)) {
-    std::cout << strbuff; 
+    std::cout.flush();
+    std::cout << strbuff ; 
   }
 
   close(sock_fd);
