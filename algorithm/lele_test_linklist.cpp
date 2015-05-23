@@ -46,24 +46,32 @@ void PrintLinkList(Node *pNode) {
 }
 
 Node *ReverseLinkList(Node *pNode) {
-	if (pNode || pNode->pNext)
+	if (pNode == nullptr)
 		return nullptr;
 
-	// 将链表第一个元素和第二个元素断开
-	Node *pHead = pNode;
-	Node *pCurr = pNode->pNext;
-	Node *pReve;
-	pNode->pNext = nullptr;
+  if (pNode->pNext == nullptr)
+    return pNode;
 
-	while(pCurr) {
-		pReve = pCurr->pNext;	
+  Node *pcurr = pNode;
+  Node *ppre;
+  Node *pnext;
 
-		pCurr->pNext = pHead;
-		pHead = pCurr;
+  ppre = pcurr;
+  pcurr = pcurr->pNext;
+  pnext = pcurr->pNext;
+  pcurr->pNext = ppre;
+  ppre->pNext = nullptr;
 
-		pCurr = pReve;
-	}
+  while(pnext->pNext != nullptr) {
+    Node *ptem = pnext->pNext;
+    pcurr->pNext = ppre; 
+    pnext->pNext = pcurr;
+    ppre = pcurr;
+    pcurr = pnext;
+    pnext = ptem;
+  }
 
-	pNode = pHead;
-	return pNode;
+  pnext->pNext = pcurr;
+
+  return pnext;
 }
