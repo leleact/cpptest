@@ -3,9 +3,12 @@
 void f();
 void g();
 #define MY_MACRO  do{f();g();} while(0)
-#define ADD_TO_ACTION_LIST(fpAction)  mf_AddToActionList(0, fpAction, #fpAction);
+#define STRING(fpAction)  s(#fpAction);
+#define LIAN(x) y_##x
+
 int main() {
-  ADD_TO_ACTION_LIST(444);
+  std::string STRING(444);
+  std::string q("LIAN(u)");
   int a = 5;
   int b = 10;
   int c = MAX( a + 1, b + 1);
