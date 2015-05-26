@@ -3,7 +3,9 @@
 void f();
 void g();
 #define MY_MACRO  do{f();g();} while(0)
+#define ADD_TO_ACTION_LIST(fpAction)  mf_AddToActionList(0, fpAction, #fpAction);
 int main() {
+  ADD_TO_ACTION_LIST(444);
   int a = 5;
   int b = 10;
   int c = MAX( a + 1, b + 1);
