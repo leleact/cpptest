@@ -27,7 +27,13 @@ public:
 private:
 };
 
+class Object {
+  Object(std::string str) : str(str) {}
+
+private:
+  std::string str;
+};
+
 int main() {
-  Y y;
-  //Base b(); // 被识别为函数声明
+  Object ob("ss"); 
 }
