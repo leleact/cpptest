@@ -3,10 +3,28 @@
 using namespace std;
 int InitString(int, char **);
 int LoopString(int, char **);
+int UpperString(int, char **);
 
 int main(int argc, char **argv) {
-  InitString(argc, argv);
-  LoopString(argc, argv);
+ // InitString(argc, argv);
+ // LoopString(argc, argv);
+  UpperString(argc, argv);
+  return 0;
+}
+
+int UpperString(int argc, char **argv) {
+  std::string s = "abcde";
+
+  [](std::string &s) {
+    for (auto &c : s) {
+      if (c >= 'a' && c <= 'z') {
+          c = c + ('A' - 'a');
+      }
+    }
+  }(s);
+
+  std::cout << s << std::endl;
+
   return 0;
 }
 
