@@ -27,13 +27,23 @@ public:
 private:
 };
 
+/*
 class Object {
   Object(std::string str) : str(str) {}
 
 private:
   std::string str;
 };
+*/
+
+class Object {
+public:
+  Object(std::string str);
+  void show();
+
+private:
+  std::string str;
+};
 
 int main() {
-  Object ob("ss"); 
 }
