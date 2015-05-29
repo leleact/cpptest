@@ -1,6 +1,3 @@
-/**
- * 即使mutex1和mutex2值相等，他们也是不同的互斥量
- */
 #include <iostream>
 #include <string>
 #include <cstring>
@@ -8,38 +5,36 @@
 #include <pthread.h>
 
 struct SSource {
+  pthread_mutex_t mutex;
   int nSource;
 };
-
-pthread_mutex_t mutex1;
-pthread_mutex_t mutex2;
 
 struct SSource g_stSource1;
 struct SSource g_stSource2;
 
 void *func1(void *arg) {
   int nRet = 0; 
-  nRet = pthread_mutex_lock(&mutex1);
+  nRet = pthread_mutex_lock(&g_stSource1.mutex);
   if (nRet) {
     std::cerr << "pthread_mutex_lock error" << std::endl;
     exit(1);
   }
 
-  // 请求同一个锁两次会一直锁下去
-  // func1即使退出，对mutex的锁也不会自动解锁
+  /* 请求同一个锁两次会一直锁下去
   std::cout << "lock twice begin" << std::endl;
-  nRet = pthread_mutex_lock(&mutex2);
+  nRet = pthread_mutex_lock(&g_stSource1.mutex);
   if (nRet) {
     std::cerr << "pthread_mutex_lock error" << std::endl;
     exit(1);
   }
   std::cout << "lock twice end" << std::endl;
+  */
 
   std::cout << "Thread: " << pthread_self() << " g_stSource1 get locked" << std::endl;
   
   sleep(10);
 
-  nRet = pthread_mutex_unlock(&mutex1);
+  nRet = pthread_mutex_unlock(&g_stSource1.mutex);
   if (nRet) {
     std::cerr << "pthread_mutex_unlock error"  << std::endl;
   }
@@ -51,14 +46,14 @@ void *func1(void *arg) {
 
 void *func2(void *arg) {
   int nRet = 0; 
-  nRet = pthread_mutex_lock(&mutex2);
+  nRet = pthread_mutex_lock(&g_stSource2.mutex);
   if (nRet) {
     std::cerr << "pthread_mutex_lock error" << std::endl;
     exit(1);
   }
   std::cout << "Thread: " << pthread_self() << " g_stSource2 get locked" << std::endl;
 
-  nRet = pthread_mutex_unlock(&mutex2);
+  nRet = pthread_mutex_unlock(&g_stSource2.mutex);
   if (nRet) {
     std::cerr << "pthread_mutex_unlock error"  << std::endl;
   }
@@ -69,10 +64,10 @@ void *func2(void *arg) {
 }
 
 int main() {
-  mutex1 = PTHREAD_MUTEX_INITIALIZER;
+  g_stSource1.mutex = PTHREAD_MUTEX_INITIALIZER;
   g_stSource1.nSource = 10;
 
-  mutex2 = PTHREAD_MUTEX_INITIALIZER;
+  g_stSource2.mutex = PTHREAD_MUTEX_INITIALIZER;
   g_stSource2.nSource = 100;
 
   pthread_t pid1;
@@ -103,9 +98,6 @@ int main() {
     std::cerr << "pthread_join error" << std::endl;
     exit(1);
   }
-
-  std::cout << "g_stSource1.nSource = [" << g_stSource1.nSource << "], "
-    << "g_stSource2.nSource = [" << g_stSource2.nSource << "]" << std::endl;
 
   return 0;
 }
