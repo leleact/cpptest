@@ -53,10 +53,6 @@ int main(int argc, char **argv) {
   } 
   
   // 建立连接
-  std::cout << "sizeof(struct sockaddr) = [" << sizeof(struct sockaddr) << "],\n"
-    << "sizeof(struct sockaddr_in) = [" << sizeof(struct sockaddr_in) << "],\n"
-    << "sizeof(stSockAddr) = [" << sizeof(stSockAddr) << "]" << std::endl;
-  INADDR_ANY
   nRet = connect(nSocket, (sockaddr *)&stSockAddr, sizeof(stSockAddr));
   if (-1 == nRet) {
     std::cerr << "connect error" << std::endl;
