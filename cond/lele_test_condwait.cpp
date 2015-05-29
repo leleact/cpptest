@@ -17,8 +17,12 @@ int eventOK = 0;
 void *ThreadDealMessage(void *pArg) {
   while(nBerun) {
     pthread_mutex_lock(&mutex);
+    /**
+     * 如果wait唤醒之后eventOK又马上不OK了, 那么需要循环去判断eventOK是否OK
+     * 第一次初始化时需要唤醒一下
+     */
     if (eventOK == 0)
-      pthread_cond_wait(&cond, &mutex);
+      pthread_cond_wait(&cond, &mutex); // 如果wait唤醒之后eventOK又马上变为0
     eventOK = 0;
     pthread_mutex_unlock(&mutex);
 
@@ -31,8 +35,8 @@ void *ThreadDealMessage(void *pArg) {
 void *ThreadGetMessage(void *pArg) {
   while(1) {
     pthread_mutex_lock(&mutex);
-    g_nSource++;
-    eventOK = 1;
+    if (g_nSource++ > 10000)
+      eventOK = 1;
     pthread_mutex_unlock(&mutex);
     pthread_cond_signal(&cond);
   }
@@ -42,18 +46,33 @@ void *ThreadGetMessage(void *pArg) {
 
 int main() {
   int nRet = 0;
-  pthread_t pidMyThread;
+  const int nThreadNum = 10;
+  pthread_t pidThreadDealMess[nThreadNum], pidGetMess;
 
-  nRet = pthread_create(&pidMyThread, NULL, ThreadDealMessage, NULL);
+  pthread_mutex_init(&mutex_show, NULL);
+//  std::cout << mutex_show << std::endl;
+
+  for (int i = 0; i < nThreadNum; i++) {
+    nRet = pthread_create(&pidThreadDealMess[i], NULL, ThreadDealMessage, NULL);
+    if (nRet) {
+      std::cout << "pthread_create error" << std::endl;
+      exit(1);
+    }
+  }
+
+  nRet = pthread_create(&pidGetMess, NULL, ThreadDealMessage, NULL);
   if (nRet) {
     std::cout << "pthread_create error" << std::endl;
     exit(1);
   }
 
-  while(1) {
-    sleep(3);
-    eventOK = 1;
+  eventOK = 1;
+  pthread_cond_signal(&cond);
+
+  for (int i = 0; i < nThreadNum; i++) {
+    pthread_join(pidThreadDealMess[i], NULL);
   }
+  pthread_join(pidGetMess, NULL);
 
-
+  return 0;
 }
