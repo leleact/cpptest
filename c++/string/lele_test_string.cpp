@@ -7,14 +7,24 @@ int LoopString(int, char **);
 int UpperString(int, char **);
 void strappend(const char *, const char *);
 int TestOperator(int, char **);
+int TestStCstPtoStr(int, char **);
 
 int main(int argc, char **argv) {
   // InitString(argc, argv);
   // LoopString(argc, argv);
   // UpperString(argc, argv);
-  TestOperator(argc, argv);
+  // TestOperator(argc, argv);
+  TestStCstPtoStr(argc, argv);
   return 0;
 }
+
+int TestStCstPtoStr(int argc, char **argv) {
+  const char *pchT = "abcdefgh";
+  std::string sT = static_cast<std::string>(pchT);
+  std::cout << "sT = [" << sT << "]" << std::endl;
+  return 0;
+}
+
 
 int UpperString(int argc, char **argv) {
   std::string s = "abcde";
