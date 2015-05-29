@@ -1,14 +1,18 @@
 #include <iostream>
 #include <string>
+#include <cstring>
 using namespace std;
 int InitString(int, char **);
 int LoopString(int, char **);
 int UpperString(int, char **);
+void strappend(const char *, const char *);
+int TestOperator(int, char **);
 
 int main(int argc, char **argv) {
- // InitString(argc, argv);
- // LoopString(argc, argv);
-  UpperString(argc, argv);
+  // InitString(argc, argv);
+  // LoopString(argc, argv);
+  // UpperString(argc, argv);
+  TestOperator(argc, argv);
   return 0;
 }
 
@@ -18,7 +22,7 @@ int UpperString(int argc, char **argv) {
   [](std::string &s) {
     for (auto &c : s) {
       if (c >= 'a' && c <= 'z') {
-          c = c + ('A' - 'a');
+        c = c + ('A' - 'a');
       }
     }
   }(s);
@@ -58,4 +62,22 @@ int InitString(int argc, char **argv) {
   std::cout << "s3 = [" << s3 << "]" << std::endl;
 
   return 0;
+}
+
+int TestOperator(int argc, char **argv) {
+  char str1[10];
+  char str2[10];
+  strcpy(str1, "aaa");
+  strcpy(str2, "bbb");
+  strappend(str1, str2);
+
+  return 0;
+}
+
+void strappend(const char *pstr, const char *pstr2) {
+  std::string s;
+  s = s + pstr + pstr2;
+  std::cout << s << std::endl;
+  std::cout << s.size() << std::endl;
+  std::cout << s.capacity() << std::endl;
 }
