@@ -10,6 +10,6 @@ private:
   static Singleton *m_pinstance;
 public:
   static std::shared_ptr<Singleton> Getinstance(); 
-  std::mutex m_Metex;
+  static std::mutex m_Mutex;
 };
 #endif
