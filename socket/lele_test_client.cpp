@@ -63,6 +63,7 @@ int main(int argc, char **argv) {
   char czBuff[nMaxBuffSize] = {0};
   std::size_t nRead = 0;
   while((nRead = read(nFd, czBuff, sizeof(czBuff))) != 0) {
+    sleep(3);
     write(nSocket, czBuff, nRead); 
   }
 
