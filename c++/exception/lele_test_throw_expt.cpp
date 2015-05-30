@@ -16,11 +16,21 @@ public:
   };
 };
 
+class MyException /*: public std::exception*/ {
+public:
+  virtual const char *what() const noexcept {
+    return "my exception";
+  }
+};
+
 void func() throw (std::string) ;
 void func1() noexcept;
 void func2() noexcept(0);
+void func3();
 
 int main() {
+
+#if 0
   std::string str = "aaa";
 
 try {
@@ -48,11 +58,24 @@ catch (int n) {
 //}
 
 
+// try {
+//   func2();
+// } catch (int n) {
+//   std::cout << "func2 int exception" << std::endl;
+// }
+
+//  func2(); /* 不捕获会core dump */
+#endif
+
+/*
 try {
-  func2();
-} catch (int n) {
-  std::cout << "func2 int exception" << std::endl;
+  func3();
+} catch(MyException e) {
+  std::cout << "func3 MyException caughted" << std::endl;
 }
+*/
+
+  func3();
 
   return 0;
 }
@@ -76,4 +99,9 @@ void func1() noexcept {
 void func2() noexcept(0) {
   std::cout << "func2 called" << std::endl;
   throw 1; // noexcpt(0) 相当于没有noexcpt 异常可以被捕获
+}
+
+void func3() {
+//  throw MyException();
+  throw MyException();
 }
