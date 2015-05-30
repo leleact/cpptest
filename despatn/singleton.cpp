@@ -1,7 +1,8 @@
 #include "singleton.h"
+Singleton *Singleton::m_pinstance = nullptr;
 
-static Singleton::Singleton sm_instance;
-
-shared_ptr<Singleton> Singleton::Getinstance() {
-  return make_shared(&sm_instance);
+std::shared_ptr<Singleton> Singleton::Getinstance() {
+  if (m_pinstance == nullptr)
+    m_pinstance = new Singleton();
+  return std::make_shared<Singleton>(m_pinstance);
 }
