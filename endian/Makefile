@@ -1,10 +1,10 @@
-include ~/platform/platmk/plat.mk
+include ~/make/plat.mak
 TARGET = lele_test_endian
-OBJECTS =	lele_test_endian.o
+OBJECTS =	$(TARGET).o
 $(TARGET) : $(OBJECTS)
-	$(CXX) $(CXXFLAGS) $< -o $@
+	$(CXX) $(CXXFLAGS) $< -o $@ $(PLATFORM_INCS) $(PLATFORM_LIBS) $(USE_SHARED_LIBS)
 $(OBJECTS) : %.o : %.cpp
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+	$(CXX) $(CXXFLAGS) -c $< -o $@ $(PLATFORM_INCS)
 .PHONY : clean
 clean:
 	$(RM) $(OBJECTS) $(TARGET)
