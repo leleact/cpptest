@@ -4,7 +4,7 @@ void Print(int a, int b);
 int main() {
   int a = 10;
   int b = 15;
-  std::cout << add(a, b) << std::cout;
+  std::cout << add(a, b) << std::endl;
 
   return 0;
 }
