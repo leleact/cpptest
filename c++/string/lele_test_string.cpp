@@ -8,14 +8,26 @@ int UpperString(int, char **);
 void strappend(const char *, const char *);
 int TestOperator(int, char **);
 int TestStCstPtoStr(int, char **);
+int TestStrReplace(int, char **);
 
 int main(int argc, char **argv) {
   // InitString(argc, argv);
   // LoopString(argc, argv);
   // UpperString(argc, argv);
   // TestOperator(argc, argv);
-  TestStCstPtoStr(argc, argv);
+  TestStrReplace(argc, argv);
   return 0;
+}
+
+int TestStrReplace(int argc, char **argv)
+{
+    std::string src = "msgCd,ver,sysId,msgId,creDtTm,instgDrctPty,instgPty,instdDrctPty,instdPty,seqNb,refSeqNb,endToEndId,bizTyp,bizKind,tranChnlTyp,OrgnlGrpHdr,RspnInf,payerAcctNo,drtFlg,procDt";
+    std::string des = "origMsgId,origInstgPty,origMsgCd,origBizTyp,origBizKind,origTranChnlTyp,origEndToEndId";
+    std::cout << src.replace(127, 11, des);
+
+    std::cout << "src = [" << src << "]" << std::endl;
+
+    return 0;
 }
 
 int TestStCstPtoStr(int argc, char **argv) {
