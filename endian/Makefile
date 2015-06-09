@@ -1,6 +1,6 @@
 include ~/make/plat.mak
 TARGET = lele_test_endian
-OBJECTS =	$(TARGET).o
+OBJECTS = $(TARGET).o
 $(TARGET) : $(OBJECTS)
 	$(CXX) $(CXXFLAGS) $< -o $@ $(PLATFORM_INCS) $(PLATFORM_LIBS) $(USE_SHARED_LIBS)
 $(OBJECTS) : %.o : %.cpp
