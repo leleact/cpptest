@@ -11,7 +11,7 @@ int main() {
   std::string q("LIAN(u)");
   int a = 5;
   int b = 10;
-  int c = MAX( a + 1, b + 1);
+  int c = MAX( a + 1, b + 1); // 有问题的
   std::cout << c << std::endl;
 
   if (1) 
