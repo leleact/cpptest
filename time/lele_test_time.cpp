@@ -18,4 +18,5 @@ int main()
 		<< std::setfill('0') << std::setw(2) << tm_now->tm_min		<< ":" 
 		<< std::setfill('0') << std::setw(2) << tm_now->tm_sec		<< " " 
 		<< std::setfill('0') << std::setw(6) << tv.tv_usec << "]" << std::endl;
+	return 0;
 }
