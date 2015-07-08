@@ -16,11 +16,12 @@ public:
   };
 };
 
-class MyException /*: public std::exception*/ {
+class MyException /*: public std::exception*/ 
+{
 public:
-  virtual const char *what() const noexcept {
-    return "my exception";
-  }
+	virtual const char *what() const noexcept {
+		return "my exception";
+	}
 };
 
 void func() throw (std::string) ;
@@ -30,7 +31,7 @@ void func3();
 
 int main() {
 
-#if 0
+#if 1
   std::string str = "aaa";
 
 try {
@@ -58,11 +59,14 @@ catch (int n) {
 //}
 
 
-// try {
-//   func2();
-// } catch (int n) {
-//   std::cout << "func2 int exception" << std::endl;
-// }
+try
+{
+   func2();
+} 
+catch (int n) 
+{
+   std::cout << "func2 int exception n[" << n << "]" << std::endl;
+}
 
 //  func2(); /* 不捕获会core dump */
 #endif
