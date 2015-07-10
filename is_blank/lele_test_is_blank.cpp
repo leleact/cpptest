@@ -26,5 +26,9 @@ int main()
 	std::cout << "src=[  ], ret=[" << is_blank("  ") << "]" << std::endl;
 	std::cout << "src=[], ret=[" << is_blank("") << "]" << std::endl;
 	std::cout << "src=[null], ret=[" << is_blank(NULL) << "]" << std::endl;
+	std::cout << "src=[ a], ret=[" << is_blank(" a") << "]" << std::endl;
+	std::cout << "src=[a ], ret=[" << is_blank("a ") << "]" << std::endl;
+	std::cout << "src=[a], ret=[" << is_blank("a") << "]" << std::endl;
+	std::cout << "src=[ ], ret=[" << is_blank(" ") << "]" << std::endl;
 	return 0;
 }
