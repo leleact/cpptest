@@ -16,7 +16,5 @@ int main()
 	{
 		write(fd, str.c_str(), str.size());	
 	}
-
-
 	return 0;
 }
