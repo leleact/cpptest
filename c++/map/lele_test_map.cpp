@@ -11,8 +11,10 @@ int main() {
   test_map.insert(make_pair(s1, 1));
   test_map.insert(make_pair(s2, 2));
 
+  test_map["vvv"] = 12;
+
   std::map<std::string, int>::iterator iter = test_map.begin();
-  if (iter != test_map.end()) {
+  while (iter != test_map.end()) {
     std::cout << iter->first << ", " << iter->second << std::endl; 
     iter++;
   }
