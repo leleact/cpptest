@@ -68,7 +68,7 @@ void ListInsert(Node<T> *pList, const int i, const T &value)
 	{
 		Node<T>	*pElem = malloc(sizeof(Node<T>));
 		pElem->value = value;
-		pElem->pNext = nullptr;
+		pElem->pNext = pList;
 		pList = pElem;
 		return;
 	}
@@ -76,7 +76,7 @@ void ListInsert(Node<T> *pList, const int i, const T &value)
 	int index = 0;
 	while(Temp != nullptr)
 	{
-		index++;	
+		index++;
 		if (i == index)
 		{
 				
