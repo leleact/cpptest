@@ -1,22 +1,21 @@
 #include <iostream>
-#include <string>
 #include <cstring>
-#include <unistd.h>
-
-int main()
+int main(int argc, char *argv[])
 {
-    char src[] = "aaa,bb,cccc,dddd,eeee";
-    char *p = strchr(src, ',');
-    std::cout << "p = [" << p << "]" << std::endl;
-    std::cout << "src - p = [" << p - src << "]" << std::endl;
+	for (int i = 0; i < argc; ++i)
+	{
+		std::cout << "argv[" << i << "][" << argv[i] << "]"	<< std::endl;
+	}
 
-    char *q = strtok(src, ",");
-    while (q != nullptr)
-    {
-        std::cout << "q = [" << q << "]" << std::endl;
-        q = strtok(nullptr, ",");
-    }
-
-
+	char *pstr = argv[1];
+	char cDot = argv[2][0];
+    char *p1 = strchr(pstr, cDot);
+    char *p2 = strchr(p1 + 1, cDot);
+	int offset = p2 - p1;
+	char strOrgiMsgType[10];
+	strncpy(strOrgiMsgType, p1 + 1, offset - 1);
+	std::cout << strOrgiMsgType << std::endl;
+	int nOrgiMsgType = atoi(strOrgiMsgType);
+	std::cout << nOrgiMsgType << std::endl;
     return 0;
 }
