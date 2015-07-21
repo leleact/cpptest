@@ -1,49 +1,29 @@
+/***************************************************************************//*
+ * 测试类中的函数没有实现是否能编译通过
+ * 测试抽象类的派生类中函数没有实现能否编译通过
+ *****************************************************************************/
 #include <iostream>
-struct X {
-  X() = default;
-  X(const X &) = default;
-  X(X &&) = default;
-  X &operator=(const X &) = default;
-  X &operator=(X &&) = default;
-  virtual ~X() = default;
-};
+#include "obstract.hpp"
 
-struct Y : private X {};
-
-class Base {};
-
-class Deried : public Base {
+class X
+{
 public:
-  Deried(const Deried &d) : Base(d) {}
-  Deried(Deried &&d) : Base(std::move(d)) {}
-  Deried &operator=(const Deried &d) {
-    Base::operator=(d);
-    return *this;
-  }
-  Deried &operator=(Deried && d) {
-    Base::operator=(std::move(d)); 
-    return *this;
-  }
-private:
+	void func1();
+	void func2();
 };
 
-/*
-class Object {
-  Object(std::string str) : str(str) {}
+void X::func2()
+{
+	std::cout << "X::func2() invoked!" << std::endl;
+	return ;
+}
 
-private:
-  std::string str;
-};
-*/
+int main()
+{
+	X x;
+	x.func2();
 
-class Object {
-public:
-  Object(std::string str);
-  void show();
-
-private:
-  std::string str;
-};
-
-int main() {
+	CC c;
+	c.func2();
+	return 0;
 }
