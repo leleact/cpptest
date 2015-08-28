@@ -13,6 +13,10 @@ int main() {
 
   test_map["vvv"] = 12;
 
+  std::size_t n = test_map.erase("bbbb");
+  std::cout << "n=[" << n << "]" << std::endl;
+
+
   std::map<std::string, int>::iterator iter = test_map.begin();
   while (iter != test_map.end()) {
     std::cout << iter->first << ", " << iter->second << std::endl; 
