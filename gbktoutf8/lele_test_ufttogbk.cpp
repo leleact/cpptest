@@ -20,7 +20,7 @@ int GbkToUtf8(char *lpSrc, std::size_t szInlen, char *lpDes, std::size_t szOutle
 	
 	memset(lpDes, 0x00, szOutlen);
 	std::size_t nRet = 0;
-    nRet = iconv(cd, pIn, &szInlen, pOut, &szOutlen);
+    nRet = ::iconv(cd, pIn, &szInlen, pOut, &szOutlen);
 	std::cout << "nRet = [" << nRet << "]" << std::endl;
 	std::cout << "errno = [" << errno << "], ErrMsg = [" << strerror(errno) << "]" << std::endl;
 	if (nRet == static_cast<std::size_t>(-1))
@@ -52,7 +52,7 @@ int Utf8ToGbk(char *lpSrc, std::size_t szInlen, char *lpDes, std::size_t szOutle
 	
 	memset(lpDes, 0x00, szOutlen);
 	std::size_t nRet = 0;
-    nRet = iconv(cd, pIn, &szInlen, pOut, &szOutlen) ;
+    nRet = ::iconv(cd, pIn, &szInlen, pOut, &szOutlen) ;
 	std::cout << "nRet = [" << nRet << "]" << std::endl;
 	std::cout << "errno = [" << errno << "], ErrMsg = [" << strerror(errno) << "]" << std::endl;
 	if (nRet == static_cast<std::size_t>(-1))
