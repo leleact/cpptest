@@ -7,8 +7,11 @@ using namespace std;
 using namespace tinyxml2;
 struct st_server
 {
-	std::string m_strip;	
-	int m_nport;
+	std::string name;
+	int msgtype;
+	std::string msgcd;
+	std::string type;
+	std::string note;
 };
 
 int main(int argc, char *argv[])
@@ -35,24 +38,16 @@ int main(int argc, char *argv[])
 		return -1;
 	}
 
-	int nNumber;
 	struct st_server stServer;
-	XMLElement *pServer = pRoot->FirstChildElement("number");
+	XMLElement *pServer = pRoot->FirstChildElement("IngoreMsgType");
 	while (pServer != nullptr)
 	{
-		
-		nNumber = atoi( pServer->Attribute("no") );
-		stServer.m_strip = pServer->FirstChildElement("IP")->GetText();
-		stServer.m_nport = atoi(pServer->FirstChildElement("Port")->GetText());
-		ServerMap.insert( std::make_pair(nNumber, stServer) );
-		pServer = pServer->NextSiblingElement();
+		XMLElement *lpItem = pServer->FirstChildElement("item");
+		while (lpItem != nullptr)
+		{
+			std::cout << "[" << lpItem->Attribute("name") << "]";
+			lpItem = lpItem->NextSiblingElement();
+		}
 	}
-
-	std::map<int, struct st_server>::iterator it;
-	for (it = ServerMap.begin(); it != ServerMap.end(); ++it)
-	{
-		std::cout << "No: "	 << it->first << ", IP: " << it->second.m_strip << ", Port: " << it->second.m_nport << std::endl;
-	}
-
 	return 0;
 }

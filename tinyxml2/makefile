@@ -1,6 +1,6 @@
 CXX = g++ 
 RM= rm -f
-CXXFLAGS = -std=c++11 -g -Wall 
+CXXFLAGS = -std=c++11 -g -Wall -O0
 
 
 TARGET = lele_test_tinyxml2
