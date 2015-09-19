@@ -12,6 +12,7 @@
 #include <sys/types.h>
 #include <netinet/in.h> /* struct sockaddr_in */
 #include <arpa/inet.h> /* inet_pton */
+#include <errno.h>
 
 int main(int argc, char **argv) {
     /**
@@ -46,13 +47,6 @@ int main(int argc, char **argv) {
         return -1;
     }
 
-    // 建立连接
-    nRet = connect(nSocket, (sockaddr *)&stSockAddr, sizeof(stSockAddr));
-    if (-1 == nRet) {
-        std::cerr << "connect error" << std::endl;
-        return -1;
-    }
-
 	int opt_sendbuf_size = 4;
 	size_t opt_len = sizeof(int);
 	nRet = setsockopt(nSocket, SOL_SOCKET, SO_SNDBUF, &opt_sendbuf_size, opt_len);
@@ -72,6 +66,22 @@ int main(int argc, char **argv) {
 	}
 	printf("%ld, %ld\n", tv.tv_sec, tv.tv_usec);
 
+	tv.tv_sec = 3;
+	tv.tv_usec = 0;
+	len = sizeof(tv);
+	nRet = setsockopt(nSocket, SOL_SOCKET, SO_RCVTIMEO, &tv, len);
+	if (nRet)
+	{
+		std::cerr << "setsockopt invoked error!"	 << std::endl;
+		return -1;
+	}
+    // 建立连接
+    nRet = connect(nSocket, (sockaddr *)&stSockAddr, sizeof(stSockAddr));
+    if (-1 == nRet) {
+        std::cerr << "connect error" << std::endl;
+        return -1;
+    }
+
     const int nMaxBuffSize = 4096;
     char czBuff[nMaxBuffSize] = {0};
     std::size_t nRead = 0;
@@ -81,8 +91,25 @@ int main(int argc, char **argv) {
 		nRead = read(STDIN_FILENO, czBuff, nMaxBuffSize);
 		czBuff[nRead - 1] = '\0';
 		printf("write [%s][%ld] to socket\n", czBuff, nRead);
-		nWrite = write(nSocket, czBuff, nRead);
-		read(nSocket, czBuff, nWrite);	
+		nWrite = write(nSocket, czBuff, strlen(czBuff));
+		printf("%s:%d nWrite[%ld]\n", __FILE__, __LINE__, nWrite);
+		if (nWrite == size_t(-1))
+		{
+			printf("%s:%d errno[%d][%s]\n", __FILE__, __LINE__, errno, strerror(errno));
+			continue;
+		}
+		else if (nWrite == 0)
+		{
+			printf("%s:%d errno[%d][%s]\n", __FILE__, __LINE__, errno, strerror(errno));
+			continue;
+		}
+		memset(czBuff, 0x00, sizeof(czBuff));
+		nRead = read(nSocket, czBuff, nWrite);	
+		if (nRead == (size_t)-1)
+		{
+			printf("%s:%d errno[%d][%s]\n", __FILE__, __LINE__, errno, strerror(errno));	
+			continue;
+		}
 		printf("read [%s][%ld] from socket\n", czBuff, nRead);
 	}
     close(nSocket);

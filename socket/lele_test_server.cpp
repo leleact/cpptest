@@ -11,6 +11,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h> /* struct sockaddr_in */
 #include <arpa/inet.h> /* inet_pton */
+#include <errno.h>
 
 int main(int argc, char **argv) {
 	/**
@@ -74,11 +75,33 @@ int main(int argc, char **argv) {
 	const int nMaxBuffSize = 4096;
 	char czBuff[nMaxBuffSize] = {0};
 	std::size_t nRead = 0;
-	while((nRead = read(nNewSocketFd, czBuff, sizeof(czBuff))))
+	while(1)
 	{
-		printf("read[%s][%ld]\n", czBuff, nRead);
+		nRead = read(nNewSocketFd, czBuff, sizeof(czBuff));
+		if (nRead == (size_t)(-1))
+		{
+			if (errno == EINTR)
+			{
+				printf("%s:%d read has been interrupt\n", __FILE__, __LINE__ );	
+				continue;	
+			}
+			else if (errno == EAGAIN)
+			{
+				printf("%s:%d none read data\n", __FILE__, __LINE__);	
+				continue;
+			}
+			printf("%s:%d read Error[%d] Errmsg[%s]\n", __FILE__, __LINE__, errno, strerror(errno));	
+			return -1;
+		}
+		else if (nRead == 0)
+		{
+			printf("%s:%d socket has been closed normally!\n", __FILE__, __LINE__);	
+			break;
+		}
+		printf("read[%s][%ld][%d]\n", czBuff, nRead, errno);
 		write(nFd, czBuff, nRead); 
-		write(nNewSocketFd, czBuff, nRead); 
+		//write(nNewSocketFd, czBuff, nRead); 
+		printf("%s:%d errno[%d]\n", __FILE__, __LINE__, errno);
 	}
 
 	close(nSocket);
