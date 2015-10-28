@@ -82,12 +82,9 @@ int main(int argc, char **argv) {
         return -1;
     }
 
-    const int nMaxBuffSize = 4096;
-    char czBuff[nMaxBuffSize] = {0};
-    std::size_t nRead = 0;
-	std::size_t nWrite = 0;
 	while(1)
 	{
+		/*
 		nRead = read(STDIN_FILENO, czBuff, nMaxBuffSize);
 		czBuff[nRead - 1] = '\0';
 		printf("write [%s][%ld] to socket\n", czBuff, nRead);
@@ -110,7 +107,22 @@ int main(int argc, char **argv) {
 			printf("%s:%d errno[%d][%s]\n", __FILE__, __LINE__, errno, strerror(errno));	
 			continue;
 		}
+		if (nRead == 0)
+		{
+			printf("%s:%d server closed\n", __FILE__, __LINE__);	
+			break;	
+		}
 		printf("read [%s][%ld] from socket\n", czBuff, nRead);
+		*/
+		sleep(1);
+		/*
+		size_t nSend = send(nSocket, "1111", 5, 0);
+		if (nSend == (size_t)-1)
+		{
+			printf("%s:%d err[%d][%s]\n", __FILE__, __LINE__, errno, strerror(errno));
+			continue;	
+		}
+		*/
 	}
     close(nSocket);
     return 0;

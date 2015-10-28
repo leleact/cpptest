@@ -1,10 +1,9 @@
-#define _GCC_
 #include <iostream>
 #include <string>
 #include <cstring>
 #include <string.h>
 #include <stdio.h>
-#ifdef _GCC_
+#ifdef __linux__
 #include <unistd.h>
 #include <fcntl.h>
 #endif
@@ -13,6 +12,7 @@
 #include <arpa/inet.h> /* inet_pton */
 #include <errno.h>
 
+void setnonblock(int , int);
 int main(int argc, char **argv) {
 	/**
 	 * argv[0] 程序名称
@@ -25,11 +25,6 @@ int main(int argc, char **argv) {
 
 	unsigned short usPort = atoi(argv[1]);
 
-	int nFd = open("recived.log", O_WRONLY|O_CREAT, 0644);
-	if (nFd <= 0) {
-		std::cerr << "open error" << std::endl;
-		return -1;
-	}
 
 	// 准备socket
 	int nSocket = socket(AF_INET, SOCK_STREAM, 0);
@@ -71,12 +66,15 @@ int main(int argc, char **argv) {
 		std::cerr << "accept error" << std::endl;
 		return -1;
 	}
-
-	const int nMaxBuffSize = 4096;
+	printf("accept ... \n");
+	setnonblock(nNewSocketFd, O_NONBLOCK);
+	int index = 0;
+	const int nMaxBuffSize = 9;
 	char czBuff[nMaxBuffSize] = {0};
-	std::size_t nRead = 0;
 	while(1)
 	{
+		sleep(10);
+		/*
 		nRead = read(nNewSocketFd, czBuff, sizeof(czBuff));
 		if (nRead == (size_t)(-1))
 		{
@@ -100,12 +98,53 @@ int main(int argc, char **argv) {
 		}
 		printf("read[%s][%ld][%d]\n", czBuff, nRead, errno);
 		write(nFd, czBuff, nRead); 
-		//write(nNewSocketFd, czBuff, nRead); 
+		write(nNewSocketFd, czBuff, nRead); 
 		printf("%s:%d errno[%d]\n", __FILE__, __LINE__, errno);
+		*/
+		size_t nRecv = recv(nNewSocketFd, czBuff, sizeof(czBuff), 0);
+		if (nRecv == 0)
+		{
+			break;	
+		}
+		if (nRecv == size_t(-1))
+		{
+			if (errno == 11)
+			{
+				printf("%s:%d err[%d][%s]\n", __FILE__, __LINE__, errno, strerror(errno));
+				continue;
+			}
+			printf("%s:%d err[%d][%s]\n", __FILE__, __LINE__, errno, strerror(errno));
+			break;
+		}
+		char filename[256] = {'\0'};
+		sprintf(filename, "%d.log", index++);
+		int nFd = open(filename, O_WRONLY|O_CREAT, 0644);
+		if (nFd <= 0) {
+			std::cerr << "open error" << std::endl;
+			return -1;
+		}	
+		write(nFd, czBuff, nRecv);
+		close(nFd);
+	}
+	close(nNewSocketFd);
+	close(nSocket);
+	return 0;
+}
+
+void setnonblock(int fd, int flag)
+{
+	int val ;
+	if ((val = fcntl(fd, F_GETFL,0)) < 0)
+	{
+		perror("fcntl error");	
+		exit(1);
 	}
 
-	close(nSocket);
-	close(nFd);
-
-	return 0;
+	val |= flag;
+	
+	if (fcntl(fd, F_SETFL, val) < 0)
+	{
+		perror("fcntl F_SETFL error");	
+		exit(1);
+	}
 }
