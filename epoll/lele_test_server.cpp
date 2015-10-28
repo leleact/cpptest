@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
 
 	struct epoll_event ev, events[nMaxEvent];
 	int epfd = epoll_create(0xFF);
-	if (epfd)
+	if (epfd < 0)
 	{
 		std::cerr << "epoll_create error!" << std::endl;
 		return -1;
@@ -50,12 +50,12 @@ int main(int argc, char *argv[])
 	bzero(&serveraddr, sizeof(serveraddr));
 	serveraddr.sin_family = AF_INET;
 	inet_aton((char *)"0.0.0.0", &serveraddr.sin_addr);
-	serveraddr.sin_port = htons(atoi(argv[0]));
+	serveraddr.sin_port = htons(atoi(argv[1]));
 
 	ret = bind(listenfd, (sockaddr *)&serveraddr, sizeof(serveraddr));
 	if (ret)
 	{
-		std::cerr << "bind error!"	 << std::endl;
+		std::cerr << "bind error!" << std::endl;
 		return -1;
 	}
 
@@ -65,10 +65,12 @@ int main(int argc, char *argv[])
 		std::cerr << "listen error!" << std::endl;
 		return -1;
 	}
-	int nfds = 0;
+
 	while(1)
 	{
-		nfds = epoll_wait(epfd, events, nMaxEvent, 500);
+		int nfds = 0;
+		nfds = epoll_wait(epfd, events, nMaxEvent, -1);
+		std::cout << "epoll_wait return nfds[" << nfds << "]" << std::endl;
 		for (int i = 0; i < nfds; ++i)
 		{
 			if (events[i].data.fd == listenfd)
@@ -97,15 +99,23 @@ int main(int argc, char *argv[])
 				char strBuff[1024] = {'\0'};
 				int n = 0;
 				int nRecv = 0;
-				while((nRecv = recv(events[i].data.fd, strBuff + n, 1024, 0)) > 0)
+				while((nRecv = recv(events[i].data.fd, strBuff + n, 1024 - n, 0)) > 0)
 				{
 					n = n + nRecv;	
 				}
 				std::cout << "strBuff[" << strBuff << "]" << std::endl;
+				//ev.data.fd = events[i].data.fd;
+				//ev.events = events[i].events | EPOLLOUT;
+				//ret = epoll_ctl(epfd, EPOLL_CTL_MOD, events[i].data.fd, &ev);
+				//if (ret)
+				//{
+					//std::cerr << "epoll_ctl error !"	<< std::endl;
+					//continue;
+				//}
 			}
 			else if (events[i].events & EPOLLOUT)
 			{
-					
+				std::cout << "EPOLLOUT" << std::endl;
 			}
 		}
 	}
