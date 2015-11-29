@@ -11,5 +11,9 @@ int main() {
 		std::cout << strbuff << std::endl;
 	}
 
+	if (strbuff.size() != 0) {
+		std::cout << strbuff << std::endl;	
+	}
+
 	return 0;
 }
