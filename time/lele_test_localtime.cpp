@@ -36,14 +36,13 @@ void run(long nCount)
 		      << "endtime.tv_usec:"   << endtime.tv_usec   << "\n"
 		      << "difftime:"          << difftime <<       std::endl;
 
-	struct tm *start_tm = localtime(&starttime.tv_sec);
-	struct tm *end_tm = localtime(&endtime.tv_sec);
 	char formatStartTime[100] = {0};
 	char formatEndTime[100]   = {0};
-
+	struct tm *start_tm = localtime(&starttime.tv_sec);
 	strftime(formatStartTime, sizeof(formatStartTime), "%Y-%m-%d %H:%M:%S", start_tm);
 	std::cout << "start@" << formatStartTime << "." << starttime.tv_usec << std::endl;
 
+	struct tm *end_tm = localtime(&endtime.tv_sec);
 	strftime(formatEndTime, sizeof(formatEndTime), "%Y-%m-%d %H:%M:%S", end_tm);
 	std::cout << "end@" << formatEndTime << "." << endtime.tv_usec << std::endl;
 
