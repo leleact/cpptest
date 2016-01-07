@@ -7,8 +7,10 @@
 #include <arpa/inet.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <errno.h>
+#include <string.h>
 
-const int nMaxEvent = 10000;
+const int nMaxEvent = 2;
 
 void setnonblocking(int fd);
 int main(int argc, char *argv[])
@@ -103,18 +105,37 @@ int main(int argc, char *argv[])
 				{
 					n = n + nRecv;	
 				}
-				std::cout << "strBuff[" << strBuff << "]" << std::endl;
-				//ev.data.fd = events[i].data.fd;
-				//ev.events = events[i].events | EPOLLOUT;
-				//ret = epoll_ctl(epfd, EPOLL_CTL_MOD, events[i].data.fd, &ev);
-				//if (ret)
-				//{
-					//std::cerr << "epoll_ctl error !"	<< std::endl;
-					//continue;
-				//}
+
+				if (nRecv == -1 && errno != EAGAIN) {
+					std::cout << "epoll_ctl_del: " << events[i].data.fd << ",errno: " << errno << ",msg:" << strerror(errno) << std::endl;
+					epoll_ctl(epfd, EPOLL_CTL_DEL, events[i].data.fd, &ev);
+					close(events[i].data.fd);
+					events[i].data.fd = -1; // INVALID SOCKET
+					continue;
+				}
+				if (nRecv == 0) {
+					std::cout << "epoll_ctl_del: " << events[i].data.fd << " closed" <<  std::endl;
+					epoll_ctl(epfd, EPOLL_CTL_DEL, events[i].data.fd, &ev);
+					close(events[i].data.fd);
+					events[i].data.fd = -1; // INVALID SOCKET
+					continue;
+				}
+				sockaddr_in socketaddr1;
+				socklen_t socketlen1;
+				getsockname(events[i].data.fd, (sockaddr *)&socketaddr1, &socketlen1);
+				std::cout << "strBuff[" << strBuff << "], port:" << socketaddr1.sin_port << std::endl;
+				ev.data.fd = events[i].data.fd;
+				ev.events = events[i].events | EPOLLOUT | EPOLLIN;
+				ret = epoll_ctl(epfd, EPOLL_CTL_MOD, events[i].data.fd, &ev);
+				if (ret)
+				{
+					std::cerr << "epoll_ctl error !"	<< std::endl;
+					continue;
+				}
 			}
 			else if (events[i].events & EPOLLOUT)
 			{
+				sleep(3);
 				std::cout << "EPOLLOUT" << std::endl;
 			}
 		}
