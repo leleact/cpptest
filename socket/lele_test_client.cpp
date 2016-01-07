@@ -115,14 +115,14 @@ int main(int argc, char **argv) {
 		printf("read [%s][%ld] from socket\n", czBuff, nRead);
 		*/
 		sleep(1);
-		/*
+		
 		size_t nSend = send(nSocket, "1111", 5, 0);
 		if (nSend == (size_t)-1)
 		{
 			printf("%s:%d err[%d][%s]\n", __FILE__, __LINE__, errno, strerror(errno));
 			continue;	
 		}
-		*/
+		
 	}
     close(nSocket);
     return 0;
