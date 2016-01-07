@@ -9,10 +9,13 @@
 #include <unistd.h>
 #include <errno.h>
 #include <string.h>
+#include "socketException.hpp"
+#include "socket.hpp"
 
 const int nMaxEvent = 2;
 
 void setnonblocking(int fd);
+char *getSocketAddr(int fd, char *socketAddr) ;
 int main(int argc, char *argv[])
 {
 	if (argc < 2)
@@ -31,14 +34,31 @@ int main(int argc, char *argv[])
 
 	struct sockaddr_in clientaddr, serveraddr;
 	socklen_t socklen = sizeof(clientaddr);
-	int listenfd = socket(AF_INET, SOCK_STREAM, 0);
-	if (listenfd < 0)
-	{
-		std::cerr << "socket error!" << std::endl;
+	varlib::socket *socketPtr = nullptr;
+	while (true) {
+		try{
+			socketPtr = new varlib::serverSocket("0.0.0.0", 8080, varlib::socket::PROTROL::TCPv4);
+		} catch(varlib::socketException e) {
+			std::cout << e.what() << std::endl;
+			return -1;
+		}
+	}
+	if (socketPtr == nullptr) {
+		std::cout << "socketPtr error" << std::endl;
 		return -1;
 	}
+	int listenfd = socketPtr->getSocket();
+	//int listenfd = socket(AF_INET, SOCK_STREAM, 0);
+	//if (listenfd < 0)
+	//{
+	//	std::cerr << "socket error!" << std::endl;
+	//	return -1;
+	//}
 
 	setnonblocking(listenfd);
+	int opt = 1;
+	setsockopt(listenfd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(int));
+	setsockopt(listenfd, SOL_SOCKET, SO_REUSEPORT, &opt, sizeof(int));
 
 	ev.data.fd = listenfd;
 	ev.events = EPOLLIN|EPOLLET;
@@ -57,7 +77,7 @@ int main(int argc, char *argv[])
 	ret = bind(listenfd, (sockaddr *)&serveraddr, sizeof(serveraddr));
 	if (ret)
 	{
-		std::cerr << "bind error!" << std::endl;
+		std::cerr << "bind error! errno:" << errno << "," << strerror(errno) << std::endl;
 		return -1;
 	}
 
@@ -78,14 +98,15 @@ int main(int argc, char *argv[])
 			if (events[i].data.fd == listenfd)
 			{
 				std::cout << "有客户端连接[" << i << "]" << std::endl;	
-				int connfd = accept(listenfd, (sockaddr *)&clientaddr, &socklen);
+				int connfd = accept(listenfd, (struct sockaddr *)&clientaddr, &socklen);
 				if (connfd < 0)
 				{
 					std::cerr << "accept error !" << std::endl;
 					continue;
 				}
 				setnonblocking(connfd);
-				std::cout << "accept a connection from [" << inet_ntoa(clientaddr.sin_addr) << "]" << std::endl;
+				std::cout << "accept a connection from [" << inet_ntoa(clientaddr.sin_addr) << ":" << clientaddr.sin_port << "]" << std::endl;
+
 				ev.data.fd = connfd;
 				ev.events = EPOLLIN|EPOLLET;
 				ret = epoll_ctl(epfd, EPOLL_CTL_ADD,connfd,&ev);
@@ -120,10 +141,7 @@ int main(int argc, char *argv[])
 					events[i].data.fd = -1; // INVALID SOCKET
 					continue;
 				}
-				sockaddr_in socketaddr1;
-				socklen_t socketlen1;
-				getsockname(events[i].data.fd, (sockaddr *)&socketaddr1, &socketlen1);
-				std::cout << "strBuff[" << strBuff << "], port:" << socketaddr1.sin_port << std::endl;
+				std::cout << "strBuff[" << strBuff << "], fd:" << events[i].data.fd << std::endl;
 				ev.data.fd = events[i].data.fd;
 				ev.events = events[i].events | EPOLLOUT | EPOLLIN;
 				ret = epoll_ctl(epfd, EPOLL_CTL_MOD, events[i].data.fd, &ev);
@@ -158,4 +176,19 @@ void setnonblocking(int fd)
 		perror("fcntl(sock,SETFL,opts)");	
 		exit(1);
 	}
+}
+
+char *getSocketAddr(int fd, char *socketAddr) {
+	sockaddr_in sock;
+	socklen_t socklen = 0;
+	if (!getsockname(fd, (struct sockaddr *)&sock, &socklen)) {
+		std::cout << sock.sin_family <<"," << sock.sin_addr.s_addr <<","<< sock.sin_port << std::endl;
+		if (inet_ntop(AF_INET, &sock.sin_addr, socketAddr, sizeof(sock)))
+			return socketAddr;
+		else
+			std::cout << "errno:" << errno << ",msg:" << strerror(errno) << std::endl;
+
+	}
+	std::cout << "errno:" << errno << ",msg:" << strerror(errno) << std::endl;
+	return NULL;
 }
