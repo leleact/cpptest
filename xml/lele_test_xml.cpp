@@ -32,6 +32,8 @@ int main()
         return -1;
     }
 
+	xmlAttr *attr =	curNode->properties;
+
     if (xmlStrcmp(curNode->name, (unsigned char *)"document"))
     {
         std::cout << "check rootElement failed" << std::endl; 
