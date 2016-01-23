@@ -5,7 +5,7 @@ SRC_DIR = src
 BIN_DIR = bin
 INC_DIR = include
 
-TARGET = $(BIN_DIR)/Main
+TARGET = $(BIN_DIR)/rand
 SRC = $(wildcard $(SRC_DIR)/*.cpp $(SRC_DIR)/*/*.cpp)
 OBJECTS = $(patsubst %.cpp,%.o,$(SRC))
 ALL : clean $(TARGET)
