@@ -34,14 +34,14 @@ int main(int argc, char *argv[])
 	struct sockaddr_in clientaddr, serveraddr;
 	socklen_t socklen = sizeof(clientaddr);
 	varlib::socket *socketPtr = nullptr;
-	while (true) {
-		try{
-			socketPtr = new varlib::serverSocket("0.0.0.0", 8080, varlib::socket::PROTROL::TCPv4);
-		} catch(varlib::socketException e) {
-			std::cout << e.what() << std::endl;
-			return -1;
-		}
+
+	try{
+		socketPtr = new varlib::serverSocket("0.0.0.0", 8080, varlib::socket::PROTROL::TCPv4);
+	} catch(varlib::socketException e) {
+		std::cout << e.what() << std::endl;
+		return -1;
 	}
+	
 	if (socketPtr == nullptr) {
 		std::cout << "socketPtr error" << std::endl;
 		return -1;
@@ -117,6 +117,22 @@ int main(int argc, char *argv[])
 			}
 			else if (events[i].events & EPOLLIN)
 			{
+				struct sockaddr_in address;
+				socklen_t address_len;
+				if (getpeername(events[i].data.fd, (struct sockaddr *)&address, &address_len)) {
+					std::cerr << "errno:[" << errno << "]" << std::endl;
+				}
+
+				{
+					char ip[16] = {0};
+					std::cout << "sin_family:[" << address.sin_family << "]\n" 
+						<< "port:[" << address.sin_port << "]\n"
+						<< "ip:[" << inet_ntop(address.sin_family, &address.sin_addr, ip, sizeof(ip)) << "]\n";
+
+					char localip[16] = {0};
+					std::cout << "[" << getSocketAddr(events[i].data.fd, localip) << "]" << std::endl;
+				}
+				
 				std::cout << "EPOLLIN" << std::endl;
 				char strBuff[1024] = {'\0'};
 				int n = 0;
