@@ -23,11 +23,7 @@ import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.util.Enumeration;
-  
 import javax.security.auth.x500.X500Principal;
-
-import com.hundsun.pspbf.common.util.SysLogUtils;
-
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 import sun.security.pkcs.ContentInfo;
