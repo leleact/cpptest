@@ -1,9 +1,9 @@
 CXX = g++
 RM = rm -f 
 CXXFLAGS = -std=c++11 -Wall -Wextra
-#ifdef DEBUG
+ifdef DEBUG
 	CXXFLAGS += -DDEBUG -g -O0
-#endif
+endif
 SRC_DIR = src
 BIN_DIR = bin
 INC_DIR = include
