@@ -8,7 +8,7 @@
 template<typename T>
 class Singleton {
     public:
-        static Singleton &GetInstance () { 
+        static Singleton &getInstance () { 
 #if __cplusplus >= 201103L
             static Singleton instance;
 #else
@@ -16,8 +16,9 @@ class Singleton {
             static Singleton instance;
             pthread_mutex_unlock(&m_Mutex);
 #endif
-            return instance; 
+            return instance;
         }
+        T type_value;
     private:
         Singleton () {};
         Singleton ( const Singleton &) {}
@@ -29,5 +30,10 @@ class Singleton {
         static pthread_mutex_t m_Mutex;
 #endif
 };
+
+#if __cplusplus < 201103L
+template<typename T>
+pthread_mutex_t Singleton<T>::m_Mutex = PTHREAD_MUTEX_INITIALIZER;
+#endif
 
 #endif
