@@ -2,8 +2,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <sys/types.h>
-int main()
-{
+int main() {
 	int fd = open("a.txt", O_RDWR|O_CREAT, 0644);
 	if (-1 == fd)
 	{
