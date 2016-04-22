@@ -1,0 +1,2 @@
+
+ssh-keygen -t rsa -b 3072 -f id_rsa_<use>
