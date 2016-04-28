@@ -13,20 +13,7 @@ static inline void loadBar(int x, int n, int r, int w) {
     int   c     = ratio * w;
 
     // Show the percentage complete.
-    printf("event1 %3d%% [", (int)(ratio*100) );
-
-    // Show the load bar.
-    for (int x=0; x<c; x++)
-        printf("=");
-
-    printf(">");
-
-    for (int x=c; x<w; x++)
-        printf(" ");
-
-    printf("]\n");
-
-    printf("event2 %3d%% [", (int)(ratio*100) );
+    printf("%3d%% [", (int)(ratio*100) );
 
     // Show the load bar.
     for (int x=0; x<c; x++)
@@ -39,8 +26,9 @@ static inline void loadBar(int x, int n, int r, int w) {
 
     // ANSI Control codes to go back to the
     // previous line and clear it.
-    printf("]\n\033[2F\033[J");
+    printf("]\n\033[F\033[J");
 }
+
 int main(int argc, char *argv[])
 {
     int i = 0;
