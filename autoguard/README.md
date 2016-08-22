@@ -15,6 +15,12 @@ public:
         (m_value.*unlock)(); 
     }
 private:
+    /**
+     * T m_value时会出发T的 T(const T &)的拷贝构造函数
+     * T &m_value不会
+     * const T &m_value 要求int (T::*lock)()和int (T::*unlock)() const
+     * 要求T中 lock和unlock函数为const
+     */
     T& m_value;
 };
 
