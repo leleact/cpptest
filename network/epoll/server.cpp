@@ -45,6 +45,7 @@ int main() {
     while(1) {
         int nfds = 0;
         nfds = epoll_wait(epfd, events, nMaxEvent, -1);
+        std::cout << "nfds[" << nfds << "]" << std::endl;
         for (int i = 0; i < nfds; ++i) {
             if (events[i].data.fd == listenfd) {
                 int connfd = accept(listenfd, (struct sockaddr *)&clientaddr, &socklen);
@@ -54,6 +55,7 @@ int main() {
                     << ":" << clientaddr.sin_port << "]" << std::endl;
                 ev.data.fd = connfd;
                 ev.events = EPOLLIN|EPOLLET;
+                std::cout << "add ev addr:" << (long)&ev << std::endl;
                 ret = epoll_ctl(epfd, EPOLL_CTL_ADD,connfd,&ev);
                 VARLIB_THROW_COND(ret != 0);
             } else if (events[i].events & EPOLLIN) {
@@ -63,13 +65,13 @@ int main() {
                 VARLIB_THROW_COND(ret != 0);
 
                 {
+                    std::cout << "EPOLLIN ev addr:" << (long)&events[i] << ", ev.fd" << events[i].data.fd << std::endl;
                     char ip[16 + 1] = { 0 };
                     std::cout << "sin_family:[" << address.sin_family << "]\n"
                         << "port:[" << address.sin_port << "]\n"
                         << "ip:[" << inet_ntop(address.sin_family, &address.sin_addr, ip, sizeof(ip)) << "]\n";
                 }
 
-                std::cout << "EPOLLIN" << std::endl;
                 char strBuff[1024] = {'\0'};
                 int n = 0;
                 int nRecv = 0;
