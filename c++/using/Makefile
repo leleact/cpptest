@@ -1,4 +1,6 @@
-include ~/platform/platmk/plat.mk
+CXX = /usr/local/bin/g++
+RM = rm -f
+CXXFLAGS = -std=c++11 -g
 TARGET = lele_test_using
 OBJECTS =	lele_test_using.o
 $(TARGET) : $(OBJECTS)
