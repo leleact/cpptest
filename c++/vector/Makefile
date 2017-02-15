@@ -1,4 +1,6 @@
-include ~/make/plat.mak
+CXX = g++
+RM = rm -f
+CXXFLAGS = -std=c++11 -g -O0 -Wall -Wextra
 TARGET = lele_test_vector
 OBJECTS =	$(TARGET).o
 $(TARGET) : $(OBJECTS)
