@@ -1,20 +1,18 @@
-#define VAR_GCC_
 #include <iostream>
 #include <sstream>
 #include <string>
 #include <cstring>
 #include <string.h>
-#ifdef VAR_GCC_
 #include <unistd.h>
 #include <fcntl.h>
-#endif
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <netinet/in.h> /* struct sockaddr_in */
-#include <arpa/inet.h> /* inet_pton */
+#include <arpa/inet.h>  /* inet_pton          */
 #include <errno.h>
 
 int main(int argc, char **argv) {
+
     /**
      * argv[0] 程序名称
      * argv[1] 发往IP地址
@@ -54,16 +52,15 @@ int main(int argc, char **argv) {
         return -1;
     }
 
-	getchar();
-	while(1) {
-		sleep(1);
-		size_t nSend = send(nSocket, "1111", 5, 0);
-		if (nSend == (size_t)-1)
-		{
-			printf("%s:%d err[%d][%s]\n", __FILE__, __LINE__, errno, strerror(errno));
-			continue;	
-		}
-	}
+    getchar();
+    while(1) {
+        sleep(1);
+        size_t nSend = send(nSocket, "1111", 5, 0);
+        if (nSend == (size_t)-1) {
+            printf("%s:%d err[%d][%s]\n", __FILE__, __LINE__, errno, strerror(errno));
+            continue;
+        }
+    }
     close(nSocket);
     return 0;
 }
