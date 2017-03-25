@@ -1,5 +1,5 @@
 CXX = g++
-RM = rm -f 
+RM = rm -f
 CXXFLAGS = -std=c++11 -Wall -Wextra
 ifdef DEBUG
 	CXXFLAGS += -DDEBUG
@@ -14,7 +14,7 @@ OBJECTS = $(patsubst %.cpp,%.o,$(SRC))
 ALL : clean $(TARGET)
 
 $(TARGET) : $(OBJECTS)
-	$(CXX) $(CXXFLAGS) $^ -o $@ 
+	$(CXX) $(CXXFLAGS) $^ -o $@
 
 $(OBJECTS) : %.o : %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@ -I./$(INC_DIR) -I./$(SRC_DIR)
