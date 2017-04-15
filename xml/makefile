@@ -1,4 +1,5 @@
-include ~/make/plat.mak
+CXX=g++
+CXXFLAGS=-std=c++11 -Wall -Wextra
 TARGET = lele_test_xml
 OBJECTS =	lele_test_xml.o
 $(TARGET) : $(OBJECTS)
