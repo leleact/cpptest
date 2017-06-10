@@ -1,4 +1,3 @@
-include ~/platform/platmk/plat.mk
 TARGET = lele_test_template
 OBJECTS =	lele_test_template.o
 $(TARGET) : $(OBJECTS)
