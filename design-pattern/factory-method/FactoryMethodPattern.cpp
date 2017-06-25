@@ -10,7 +10,7 @@ public:
 
 class Product1 : public Product {
 public:
-    virtual void method() {
+    virtual void method() override {
         PF
     }
 };
