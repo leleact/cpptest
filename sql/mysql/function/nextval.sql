@@ -5,7 +5,7 @@ BEGIN
     SELECT
     sequence_cur_value INTO cur_val
     FROM
-    sequence.sequence_data
+    rundb.sequence_data
     WHERE
     sequence_name = seq_name;
 
