@@ -79,6 +79,7 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'vim-scripts/a.vim'
 " Plugin 'gustavo-hms/vim-cscope'
+Plugin 'vim-scripts/DoxygenToolkit.vim'
 " }
 
 " UI {
@@ -110,8 +111,8 @@ set nocompatible
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 set history=1000      " keep 50 lines of command line history
-set showcmd     " display incomplete commands
-set incsearch       " do incremental searching
+set showcmd           " display incomplete commands
+set incsearch         " do incremental searching
 
 set number
 set ruler
@@ -354,12 +355,12 @@ let g:UltiSnipsJumpBackwardTrigger='<C-B>'
 " NerdTree {
 map <F1> :NERDTreeToggle<CR>
 map <C-F1> :NERDTreeFind<CR>
-let g:NERDTreeWinSize = 30
-let NERDTreeChDirMode= 2			"选中root即设置为当前目录
-let NERDTreeQuitOnOpen= 1			"打开文件时关闭树
-let NERDTreeShowBookmarks= 1		"显示书签
-let NERDTreeMinimalUI= 1			"不显示帮助面板
-let NERDTreeDirArrows= 1			"目录箭头 1 显示箭头  0传统+-|号
+let g:NERDTreeWinSize=30
+let NERDTreeChDirMode=2			"选中root即设置为当前目录
+let NERDTreeQuitOnOpen=1		"打开文件时关闭树
+let NERDTreeShowBookmarks=1		"显示书签
+let NERDTreeMinimalUI=1			"不显示帮助面板
+let NERDTreeDirArrows=1			"目录箭头 1 显示箭头  0传统+-|号
 " }
 
 " TagBar {
