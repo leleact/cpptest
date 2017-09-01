@@ -1,5 +1,6 @@
 #include <iostream>
 #include <stdio.h>
+
 #define NONE "\033[m"
 #define RED "\033[0;32;31m"
 #define LIGHT_RED "\033[1;31m"
@@ -16,15 +17,16 @@
 #define YELLOW "\033[1;33m"
 #define LIGHT_GRAY "\033[0;37m"
 #define WHITE "\033[1;37m"
+
 int main()
 {
 	printf( NONE "NONE\n");
 	printf( RED "RED\n");
 	printf( LIGHT_RED "LIGHT_RED\n");
-	printf( GREEN "GREEN\n"); 
-	printf( LIGHT_GREEN "LIGHT_GREEN\n"); 
-	printf( BLUE "BLUE\n"); 
-	printf( LIGHT_BLUE "LIGHT_BLUE" NONE "\n"); 
-	printf( DARY_GRAY "DARY_GRAY" NONE "\n"); 
-	printf( CYAN "CYAN" NONE "\n"); 
+	printf( GREEN "GREEN\n");
+	printf( LIGHT_GREEN "LIGHT_GREEN\n");
+	printf( BLUE "BLUE\n");
+	printf( LIGHT_BLUE "LIGHT_BLUE" NONE "\n");
+	printf( DARY_GRAY "DARY_GRAY" NONE "\n");
+	printf( CYAN "CYAN" NONE "\n");
 }
