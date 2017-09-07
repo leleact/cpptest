@@ -2,6 +2,8 @@
 #include <utility>
 #include <vector>
 #include <iomanip>
+
+namespace v_before_20170907 {
 #define DEBUG
 #ifndef USING_STD_STRING
 class X {
@@ -20,7 +22,7 @@ public:
 #endif
   }
   X& operator=(const X &x) {
-    s = x.s; 
+    s = x.s;
     return *this;
   }
   X& operator=(X&& x) {
@@ -31,7 +33,7 @@ public:
   }
 
   friend std::ostream& operator<<(std::ostream &os, X &x) {
-    os << x.s; 
+    os << x.s;
     return os;
   }
 private:
@@ -60,4 +62,24 @@ int main() {
   std::cout << "x3 = [" << x3 << "], x4 = [" << x4 << "]" << std::endl;
 
   return 0;
+}
+}
+
+
+namespace v_20170907 {
+
+    void f(std::vector<std::string> str) {
+        const std::vector<std::string>& v2 = std::move(str); // 编译以及运行正常
+        //std::vector<std::string>& v2 = std::move(str); // 编译报错
+    }
+
+    int main(int argc, char *argv[]) {
+        std::vector<std::string>  vec = {"aaa", "bbb"};
+        f(vec);
+        return 0;
+    }
+}
+
+int main(int argc, char *argv[]) {
+    return v_20170907::main(argc, argv);
 }

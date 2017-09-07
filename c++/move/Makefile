@@ -1,4 +1,5 @@
-include ~/platform/platmk/plat.mk
+CXX=clang++
+CXXFLAGS=-std=c++11
 TARGET = lele_test_move lele_test_str_move
 OBJECTS =	lele_test_move.o lele_test_str_move.o
 all : $(TARGET)
