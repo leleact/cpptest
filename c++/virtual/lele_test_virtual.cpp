@@ -1,15 +1,15 @@
 #include <iostream>
 #include <typeinfo>
 #include <string>
-class Base
-{
+
+class Base {
 public:
 	virtual ~Base() {};
 	virtual void f1()
 	{
 		std::cout << typeid(*this).name() << std::endl;
 		std::cout << "Base::f1() invokeed" << std::endl;
-		f2();	
+		f2();
 	}
 
 	virtual void f2()
@@ -18,14 +18,14 @@ public:
 		std::cout << "Base::f2() invokeed" << std::endl;
 	}
 };
-class Deveried : public Base 
-{
+
+class Deveried : public Base {
 public:
 	void f1()
 	{
 		std::cout << typeid(*this).name() << std::endl;
 		std::cout << "Deveried::f1() invokeed" << std::endl;
-		f2();	
+		f2();
 	}
 
 	void f2()
@@ -35,15 +35,14 @@ public:
 	}
 };
 
-class A : public Deveried
-{
+class A : public Deveried {
 
 	/*
 	void f1() override
 	{
 		std::cout << typeid(*this).name() << std::endl;
 		std::cout << "A::f1() invokeed" << std::endl;
-		f2();	
+		f2();
 	}
 
 	void f2() override
@@ -55,14 +54,12 @@ class A : public Deveried
 
 };
 
-int main()
-{
+int main() {
 
 	Base *p = new A();
 	p->f1();
 
 	delete p;
-
 
 	return 0;
 }
