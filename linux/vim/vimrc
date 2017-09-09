@@ -325,6 +325,7 @@ let g:ycm_complete_in_comments = 1
 let g:ycm_complete_in_strings = 1
 let g:ycm_collect_identifiers_from_comments_and_strings = 1
 let g:ycm_echo_current_diagnostic = 1
+let g:ycm_key_invoke_completion = '<C-a>'
 "let g:ycm_disable_for_files_larger_than_kb = 0 " 关闭大文件打开提示
 
 " 自动补全后关闭Scratch
