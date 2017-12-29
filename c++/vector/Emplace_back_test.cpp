@@ -34,7 +34,7 @@ int main(int argc, char *argv[]) {
 
     {
         std::vector<Item> vec;
-        Item it("bbb", 10); 
+        Item it("bbb", 10);
         vec.emplace_back(it);
     }
 }

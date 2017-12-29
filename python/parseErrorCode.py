@@ -16,6 +16,7 @@ with open(filename, "r+") as fr:
         fw.write("<entry key=\""+ strings[0] +"\" value=\"" + strings[2] +"\" />\n")
         fs.write("<entry key=\""+ strings[0] +"\" value=\"" + strings[3] +"\" />\n")
         fq.write("<entry key=\""+ strings[0] +"\" value=\"" + strings[4] +"\" />\n")
+    # 不需要close
     fr.close
 fw.close
 fs.close

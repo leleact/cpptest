@@ -11,11 +11,11 @@ namespace varlib {
         long duration = value.count();
         return duration;
     }
-
 }
 
-int main()
-{
+namespace v1 {
+
+int main() {
     //future from a packaged_task
     std::packaged_task<int()> task([](){
             std::cout << "(" << __FILE__ << ":" << __LINE__ << ")[" << __PRETTY_FUNCTION__
@@ -49,4 +49,25 @@ int main()
     f3.wait();
     std::cout << "Done!\nResults are: "
         << f1.get() << ' ' << f2.get() << ' ' << f3.get() << '\n';
+    return 0;
+}
+}
+
+namespace v20171228 {
+    int main(int argc, char *argv[]) {
+        std::promise<std::string> promise;
+        std::future<std::string> future = promise.get_future();
+        std::thread([&promise]{
+            std::cout << "(" << __FILE__ << ":" << __LINE__ << ")[" << __PRETTY_FUNCTION__
+            << "]{tid:" << std::this_thread::get_id() << ", time:" << varlib::getCurrentTime() << "}" << std::endl;
+            promise.set_value_at_thread_exit("hello world");
+                }).detach();
+
+        std::cout << "Done!\n result: [" << future.get() << "]" << std::endl;;
+        return 0;
+    }
+}
+
+int main(int argc, char *argv[]) {
+    return v20171228::main(argc, argv);
 }
