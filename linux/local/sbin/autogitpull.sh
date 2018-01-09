@@ -17,6 +17,7 @@ do
         if [ -d .git ]
         then
             git fetch origin && git submodule update --init --recursive
+            git pull
         fi
         cd ..
     fi
