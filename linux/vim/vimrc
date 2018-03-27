@@ -70,7 +70,7 @@ Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 " }
 
-" Usefull {
+" Useful {
 Plugin 'majutsushi/tagbar'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'scrooloose/nerdtree'
@@ -78,6 +78,7 @@ Plugin 'scrooloose/nerdtree'
 " <leader> cu uncomment
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'vim-scripts/a.vim'
+Plugin 'vim-scripts/vim-auto-save'
 " Plugin 'gustavo-hms/vim-cscope'
 Plugin 'vim-scripts/DoxygenToolkit.vim'
 " }
@@ -422,6 +423,12 @@ let g:airline_theme='xtermlight'
 " molokai {
 let g:molokai_original = 1
 let g:rehash256 = 1
+" }
+
+" auto save {
+let g:auto_save = 1  " enable AutoSave on Vim startup
+let g:auto_save_no_updatetime = 1  " do not change the 'updatetime' option
+let g:auto_save_in_insert_mode = 0  " do not save while in insert mode
 " }
 
 " }
