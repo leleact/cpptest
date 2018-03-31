@@ -1,12 +1,13 @@
 language: cpp
 
-compiler:
-    - clang
-    - gcc
+matrix:
+    include:
+        - os: linux
+          compiler: gcc
+        - os: linux
+          compiler: clang
 
-script:
-    - cd ./c-cpp/ && mkdir build
-    - cd build; cmake .. && make && make test
+script: ./ci/travis.sh
 
 notifications:
     email:
