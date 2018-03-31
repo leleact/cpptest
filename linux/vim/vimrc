@@ -81,6 +81,7 @@ Plugin 'vim-scripts/a.vim'
 Plugin 'vim-scripts/vim-auto-save'
 " Plugin 'gustavo-hms/vim-cscope'
 Plugin 'vim-scripts/DoxygenToolkit.vim'
+" Plugin 'gabrielelana/vim-markdown'
 " }
 
 " UI {
