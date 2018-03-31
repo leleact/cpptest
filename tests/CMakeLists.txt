@@ -1,15 +1,13 @@
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/CMakeModules)
 
 find_package("googletest" REQUIRED)
-
 if (GOOGLETEST_FOUND)
     add_subdirectory(${GTEST_SOURCE_DIR} ${CMAKE_BINARY_DIR}/googletest)
-    include_directories(SYSTEM ${GTEST_INCLUDE_DIR})
-    add_test(NAME gtest COMMAND GUnitTests)
+    include_directories(AFTER SYSTEM ${GTEST_INCLUDE_DIR})
     file(GLOB_RECURSE SRC_FILES ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
-    MESSAGE(STATUS "SRC_FILES: " ${SRC_FILES})
     ADD_EXECUTABLE(GUnitTests ${SRC_FILES})
     target_link_libraries(GUnitTests gtest gtest_main)
+    add_test(NAME gunittests COMMAND GUnitTests)
 else(GOOGLETEST_FOUND)
-    MESSAGE(STATUS "GOOGLETEST NOT FOUND")
+    MESSAGE(STATUS "GOOGLETEST NOT FOUND, gtest will not run")
 endif(GOOGLETEST_FOUND)

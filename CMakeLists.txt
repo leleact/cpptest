@@ -17,7 +17,7 @@ project(cpptest C CXX)
 
 # Options
 #TODO 增加选择编译测试程序
-option(protobuf_BUILD_TESTS "Build tests" ON)
+option(CPP_TEST_BUILD_TESTS "Build tests" ON)
 
 #TODO 增加编译动态库的选项
 if (BUILD_SHARED_LIBS)
@@ -25,6 +25,8 @@ if (BUILD_SHARED_LIBS)
 else (BUILD_SHARED_LIBS)
     set(CPP_TEST_BUILD_SHARED_LIBS_DEFAULT OFF)
 endif (BUILD_SHARED_LIBS)
+
+set(CMAKE_VERBOSE_MAKEFILE ON)
 
 enable_testing()
 
