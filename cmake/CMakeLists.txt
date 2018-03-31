@@ -17,3 +17,5 @@ configure_file (
 include_directories("${PROJECT_BINARY_DIR}")
 
 add_executable(Tutorial tutorial.cxx)
+
+MESSAGE(STATUS "CMAKE_PREFIX_PATH: " ${CMAKE_PREFIX_PATH})
