@@ -4,7 +4,13 @@ compiler:
     - clang
     - gcc
 
-
 script:
     - cd ./c-cpp/ && mkdir build
     - cd build; cmake .. && make && make test
+
+notifications:
+    email:
+        recipients:
+            - vacp@outlook.com
+        on_success: never  # default: change
+        on_failure: always # default: always
