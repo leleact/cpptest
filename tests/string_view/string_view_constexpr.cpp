@@ -1,3 +1,4 @@
+#if __cplusplus >= 201703L
 #include "gtest/gtest.h"
 #include <iostream>
 #include <array>
@@ -23,3 +24,5 @@ struct UAT {
 TEST(test_string_view, string_view_constexpr) {
     EXPECT_EQ("uat", Context<UAT>::value);
 }
+
+#endif
