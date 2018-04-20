@@ -8,7 +8,7 @@ matrix:
                   sources:
                       - ubuntu-toolchain-r-test
                       - george-edison55-precise-backports
-                      - jonathonf
+                      - jonathonf/gcc-7.3
                   packages:
                       - g++-7.3
           compiler: gcc
@@ -20,9 +20,11 @@ matrix:
                   sources:
                       - llvm-toolchain-trusty
                       - george-edison55-precise-backports
-                      - jonathonf
+                      - llvm-toolchain-trusty-6.0
+                      - jonathonf/gcc-7.3
                   packages:
                       - clang-6.0
+                      - g++-7.3
           compiler: clang
           env:
               - COMPILER="CC=clang-6.0 && CXX=clang++-6.0"
