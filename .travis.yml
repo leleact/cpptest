@@ -8,9 +8,6 @@ matrix:
                   sources:
                       - ubuntu-toolchain-r-test
                       - george-edison55-precise-backports
-                      - jonathonf/gcc-7.3
-                  packages:
-                      - g++-7.3
           compiler: gcc
           env:
               - COMPILER="CC=gcc-7.3 && CXX=g++-7.3"
@@ -21,15 +18,15 @@ matrix:
                       - llvm-toolchain-trusty
                       - george-edison55-precise-backports
                       - llvm-toolchain-trusty-6.0
-                      - jonathonf/gcc-7.3
-                  packages:
-                      - clang-6.0
-                      - g++-7.3
           compiler: clang
           env:
               - COMPILER="CC=clang-6.0 && CXX=clang++-6.0"
 
 before_install:
+    - sudo add-apt-repository ppa:jonathonf/gcc -y
+    - sudo apt-get update -q
+    - sudo apt-get insall g++7.3 -y
+    - sudo apt-get install clang6.0 -y
     - eval "${COMPILER}"
 
 script: ./ci/travis.sh
