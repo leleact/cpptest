@@ -1,4 +1,4 @@
-#include "gtest_trail.h"
+#include "gtest_trial.h"
 
 TEST(EqualTest, BaseEqual) {
     v1::base b;
