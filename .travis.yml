@@ -1,0 +1,40 @@
+language: cpp
+
+matrix:
+    include:
+        - os: linux
+          addons:
+              apt:
+                  sources:
+                      - ubuntu-toolchain-r-test
+                      - george-edison55-precise-backports
+                  packages:
+                      - g++-7
+          compiler: gcc
+          env:
+              - COMPILER="CC=gcc-7 && CXX=g++-7"
+        - os: linux
+          addons:
+              apt:
+                  sources:
+                      - ubuntu-toolchain-r-test
+                      - george-edison55-precise-backports
+                      - llvm-toolchain-trusty-6.0
+                  packages:
+                      - g++-7
+                      - clang-6.0
+          compiler: clang
+          env:
+              - COMPILER="CC=clang-6.0 && CXX=clang++-6.0"
+
+before_install:
+    - eval "${COMPILER}"
+
+script: ./ci/travis.sh
+
+notifications:
+    email:
+        recipients:
+            - vacp@outlook.com
+        on_success: never  # default: change
+        on_failure: always # default: always
