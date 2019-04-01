@@ -1,7 +1,8 @@
+#include <add.hpp>
 #include <iostream>
-using std::cout;
-using std::endl;
 int main() {
-  cout << "Hello, world!" << endl;
-  return 0;
+    int a = 10;
+    int b = 20;
+    std::cout << add(a, b) << std::endl;
+    return 0;
 }
