@@ -1,3 +1,4 @@
+include(unittest)
 configure_file(../cmake/CMakeLists.txt.in googletest-download/CMakeLists.txt)
 execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
     RESULT_VARIABLE result
@@ -30,11 +31,6 @@ if (CMAKE_VERSION VERSION_LESS 2.8.11)
 endif()
 
 # Now simply link against gtest or gtest_main as needed. Eg
-# TODO write a function
-add_executable(first_test first_test.cpp)
-target_link_libraries(first_test gtest_main)
-add_test(NAME first_test COMMAND first_test)
-
-add_executable(second_test second_test.cpp)
-target_link_libraries(second_test gtest_main)
-add_test(NAME second_test COMMAND second_test)
+cpp_add_test(TEST_NAME first_test SOURCE_FILE first_test.cpp)
+cpp_add_test(TEST_NAME second_test SOURCE_FILE second_test.cpp)
+cpp_add_test(TEST_NAME spdlog_test SOURCE_FILE spdlog_test.cpp)
