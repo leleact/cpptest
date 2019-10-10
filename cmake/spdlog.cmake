@@ -4,8 +4,7 @@ if (HEADER_FILE)
     message(STATUS "spdlog has been install by the host")
 else()
     ExternalProject_Add(spdlog
-        GIT_REPOSITORY https://github.com/gabime/spdlog.git
-        GIT_TAG master
+        URL ${PROJECT_SOURCE_DIR}/third_party/spdlog
         SOURCE_DIR ${CMAKE_CURRENT_BINARY_DIR}/spdlog-src
         CONFIGURE_COMMAND ""
         BUILD_COMMAND ""
