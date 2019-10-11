@@ -41,7 +41,23 @@
             },
             "dependsOn": [
                 "cmake"
-            ]
-        }
+            ],
+            "group": "build"
+        },
+        {
+            "label": "make test",
+            "type": "shell",
+            "command": "make",
+            "args": [
+                "test"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/build"
+            },
+            "dependsOn": [
+                "make"
+            ],
+            "group": "test"
+        },
     ]
 }

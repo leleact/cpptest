@@ -1,5 +1,5 @@
 include(unittest)
-cpp_add_test(TEST_NAME first_test SOURCE_FILE first_test.cpp)
+cpp_add_test(TEST_NAME template_arg_test SOURCE_FILE template_arg_test.cpp)
 cpp_add_test(TEST_NAME second_test SOURCE_FILE second_test.cpp)
 cpp_add_test(TEST_NAME spdlog_test SOURCE_FILE spdlog_test.cpp)
 cpp_add_test(TEST_NAME bitset_test SOURCE_FILE bitset_test.cpp)
