@@ -18,6 +18,7 @@ if (BUILD_TEST)
     add_subdirectory(third_party/googletest)
     add_subdirectory(third_party/spdlog)
 endif()
+add_subdirectory(third_party/sqlite)
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
