@@ -12,6 +12,7 @@ set(CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH};${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 include_directories(third_party/spdlog/include)
+include_directories(third_party/sqlite/src)
 if (BUILD_TEST)
     enable_testing()
     add_subdirectory(test)

@@ -1,3 +1,3 @@
 add_executable(main main.cpp)
-LINK_DIRECTORIES(${CMAKE_BINARY_DIR}/lib)
-TARGET_LINK_LIBRARIES(main add)
+link_directories(${CMAKE_BINARY_DIR}/lib)
+target_link_libraries(main add)

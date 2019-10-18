@@ -1,6 +1,7 @@
 include(unittest)
 cpp_add_test(TEST_NAME template_arg_test SOURCE_FILE template_arg_test.cpp)
-cpp_add_test(TEST_NAME second_test SOURCE_FILE second_test.cpp)
+cpp_add_test(TEST_NAME sqlite3_test SOURCE_FILE sqlite3_test.cpp)
+target_link_libraries(sqlite3_test sqlite3 dl)
 cpp_add_test(TEST_NAME spdlog_test SOURCE_FILE spdlog_test.cpp)
 cpp_add_test(TEST_NAME bitset_test SOURCE_FILE bitset_test.cpp)
 cpp_add_test(TEST_NAME declval_test SOURCE_FILE declval_test.cpp)
