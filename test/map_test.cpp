@@ -41,3 +41,19 @@ TEST(map, square_brackets) {
     X x = map[std::string("a")];
   }
 }
+
+TEST(map, order) {
+  using c_it = std::map<int, int>::const_iterator;
+  std::vector<int> asserts;
+  std::map<int, int> map;
+  map.emplace(3, 3);
+  map.emplace(1, 1);
+  map.emplace(2, 2);
+
+  for (c_it it = map.cbegin(); it != map.cend(); ++it) {
+    asserts.push_back(it->first);
+  }
+  ASSERT_EQ(1, asserts[0]);
+  ASSERT_EQ(2, asserts[1]);
+  ASSERT_EQ(3, asserts[2]);
+}
