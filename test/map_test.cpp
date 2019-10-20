@@ -20,3 +20,24 @@ TEST(std_map, emplace) {
   ASSERT_EQ(1, m1.size());
   ASSERT_EQ(1, m2.size());
 }
+
+TEST(map, square_brackets) {
+  {
+    std::map<std::string, long> map;
+    long l = map[std::string("a")];
+    ASSERT_EQ(0, l);
+    ASSERT_EQ(1, map.size());
+  }
+  {
+    struct X {
+      std::string name;
+      X() {}
+      X(const std::string &n) : name(n){};
+      X(const X &x) { name = x.name; }
+      X(X &&x) { name = std::move(x.name); }
+    };
+
+    std::map<std::string, X> map;
+    X x = map[std::string("a")];
+  }
+}
