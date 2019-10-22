@@ -8,9 +8,11 @@
                   __VA_ARGS__);                                                \
   }
 
-TEST(ExternalProject, spdlog) {
+TEST(spdlog, console_basic) {
   auto console = spdlog::stderr_color_mt("console");
   console->set_level(spdlog::level::trace);
   console->info("spdlog output, welcome to spdlog!");
   LOGD(console, "{}", "xxx");
 }
+
+TEST(spdblog, global_log) { SPDLOG_INFO("{}", "xxxxxxxxxxx"); }

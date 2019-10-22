@@ -1,3 +1,6 @@
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 include(unittest)
 cpp_add_test(TEST_NAME template_arg_test SOURCE_FILE template_arg_test.cpp)
 cpp_add_test(TEST_NAME sqlite3_test SOURCE_FILE sqlite3_test.cpp)
