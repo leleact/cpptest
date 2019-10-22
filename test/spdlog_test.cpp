@@ -1,3 +1,4 @@
+#define SPDLOG_ACTIVE_LEVEL SPDLOG_LEVEL_TRACE
 #include "spdlog/sinks/stdout_color_sinks.h"
 #include "spdlog/spdlog.h"
 #include "gtest/gtest.h"
@@ -15,4 +16,8 @@ TEST(spdlog, console_basic) {
   LOGD(console, "{}", "xxx");
 }
 
-TEST(spdblog, global_log) { SPDLOG_INFO("{}", "xxxxxxxxxxx"); }
+TEST(spdblog, global_log) {
+  spdlog::set_level(spdlog::level::trace);
+  SPDLOG_INFO("{}", "xxxxxxxxxxx");
+  SPDLOG_DEBUG("{}", "yyyyyyyyyyy");
+}
