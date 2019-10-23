@@ -10,14 +10,13 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH};${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-include_directories(third_party/spdlog/include)
-include_directories(third_party/sqlite3/src)
-enable_testing()
-add_subdirectory(test)
 add_subdirectory(third_party/googletest)
-#add_subdirectory(third_party/spdlog)
 add_subdirectory(third_party/sqlite3)
-
+add_subdirectory(third_party/header_only)
+add_subdirectory(third_party/spdlog)
 
 add_subdirectory(src)
 add_subdirectory(lib)
+
+enable_testing()
+add_subdirectory(test)
