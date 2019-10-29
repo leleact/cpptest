@@ -19,10 +19,6 @@ public:
     MARK;
     return *this;
   }
-
-private:
-  X(X &&) = delete;
-  X &operator=(X &&) = delete;
 };
 
 } // namespace x1
