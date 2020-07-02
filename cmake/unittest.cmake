@@ -12,6 +12,7 @@ function(cpp_add_test)
     message(STATUS "cpp_add_test_SOURCE_FILE: ${cpp_add_test_SOURCE_FILE}")
 
     add_executable(${cpp_add_test_TEST_NAME} ${cpp_add_test_SOURCE_FILE})
+    set_property(TARGET ${cpp_add_test_TEST_NAME} PROPERTY CXX_STANDARD 14)
     target_link_libraries(${cpp_add_test_TEST_NAME} gtest_main)
     add_test(NAME ${cpp_add_test_TEST_NAME} COMMAND ${cpp_add_test_TEST_NAME})
 endfunction()
