@@ -1,28 +1,22 @@
+dist: xenial
 language: cpp
+cache:
+    - ccache
+addons:
+    apt:
+        sources:
+            - ubuntu-toolchain-r-test
+        packages:
+            - g++
+            - clang-8
 matrix:
-    include:
-        - os: linux
-          dist: bionic
-          addons:
-              apt:
-                  sources:
-                      - ubuntu-toolchain-r-test
-                  packages:
-                      - g++-7
-          compiler: gcc
+    include: 
+        - compiler: gcc
           env:
-              - COMPILER="CC=gcc-7 && CXX=g++-7"
-        - os: linux
-          dist: bionic
-          addons:
-              apt:
-                  sources:
-                      - llvm-toolchain-trusty-7
-                  packages:
-                      - clang-7
-          compiler: clang
+            - COMPILER="CC=gcc && CXX=g++"
+        - compiler: clang
           env:
-              - COMPILER="CC=clang-7 && CXX=clang++-7"
+            - COMPILER="CC=clang-8 && CXX=clang++-8"
 
 before_install:
     - eval "${COMPILER}"
