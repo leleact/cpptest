@@ -8,18 +8,18 @@ addons:
             - ubuntu-toolchain-r-test
         packages:
             - g++
-            - clang
+            - clang-10
 matrix:
     include: 
         - compiler: gcc
           env:
-            - COMPILER="CC=gcc && CXX=g++"
+            - MATRIX_EVAL="CC=gcc && CXX=g++"
         - compiler: clang
           env:
-            - COMPILER="CC=clang && CXX=clang++"
+            - MATRIX_EVAL="CC=clang-10 && CXX=clang++-10"
 
 before_install:
-    - eval "${COMPILER}"
+    - eval "${MATRIX_EVAL}"
 
 script: ./ci/travis.sh
 
