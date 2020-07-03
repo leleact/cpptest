@@ -1,7 +1,3 @@
 unset(SOURCE_FILE)
-unset(TEST_NAME)
 aux_source_directory(${CMAKE_CURRENT_SOURCE_DIR} SOURCE_FILE)
-set(TEST_NAME crtp_test)
-add_executable(${TEST_NAME} ${SOURCE_FILE})
-target_link_libraries(${TEST_NAME} gtest_main)
-add_test(NAME ${TEST_NAME} COMMAND ${TEST_NAME})
+cpp_add_test(TEST_NAME crtp_test SOURCE_FILE ${SOURCE_FILE})
