@@ -1,4 +1,5 @@
-dist: Focal
+os: linux
+dist: focal
 language: cpp
 cache:
     - ccache
@@ -9,17 +10,25 @@ addons:
         packages:
             - g++
             - clang-10
-matrix:
+jobs:
     include: 
         - compiler: gcc
           env:
-            - MATRIX_EVAL="CC=gcc && CXX=g++"
+            - CC=gcc
+            - CXX=g++
         - compiler: clang
           env:
-            - MATRIX_EVAL="CC=clang-10 && CXX=clang++-10"
+            - CC=clang-10 
+            - CXX=clang++-10
 
-before_install:
-    - eval "${MATRIX_EVAL}"
+before_script:
+    - if [[ -f /usr/bin/clang++-10 ]]; then
+        update-alternatives --install /usr/bin/clang clang /usr/bin/clang-10 1000;
+        update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-10 1000;
+        update-alternatives --config clang;
+        update-alternatives --config clang++;
+        export PATH=/usr/bin:$PATH;
+      fi
 
 script: ./ci/travis.sh
 
