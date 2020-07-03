@@ -35,6 +35,6 @@ script: ./ci/travis.sh
 notifications:
     email:
         recipients:
-            - vacp@outlook.com
+            - leleact@gmail.com
         on_success: never  # default: change
         on_failure: always # default: always
