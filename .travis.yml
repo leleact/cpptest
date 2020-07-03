@@ -11,24 +11,25 @@ addons:
             - g++
             - clang-10
 jobs:
-    include: 
+    include:
         - compiler: gcc
           env:
-            - CC=gcc
-            - CXX=g++
+              - CC=gcc
+              - CXX=g++
         - compiler: clang
           env:
-            - CC=clang-10 
-            - CXX=clang++-10
+              - CC=clang-10
+              - CXX=clang++-10
 
 before_script:
-    - if [[ -f /usr/bin/clang++-10 ]]; then
-        update-alternatives --install /usr/bin/clang clang /usr/bin/clang-10 1000;
-        update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-10 1000;
-        update-alternatives --config clang;
-        update-alternatives --config clang++;
-        export PATH=/usr/bin:$PATH;
-      fi
+    - |
+        if [[ -f /usr/bin/clang++-10 ]]; then
+          update-alternatives --install /usr/bin/clang clang /usr/bin/clang-10 1000;
+          update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-10 1000;
+          update-alternatives --config clang;
+          update-alternatives --config clang++;
+          export PATH=/usr/bin:$PATH;
+        fi
 
 script: ./ci/travis.sh
 
@@ -36,5 +37,5 @@ notifications:
     email:
         recipients:
             - leleact@gmail.com
-        on_success: never  # default: change
+        on_success: never # default: change
         on_failure: always # default: always
