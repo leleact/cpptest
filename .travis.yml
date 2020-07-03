@@ -1,4 +1,4 @@
-dist: xenial
+dist: Focal
 language: cpp
 cache:
     - ccache
@@ -8,7 +8,7 @@ addons:
             - ubuntu-toolchain-r-test
         packages:
             - g++
-            - clang-8
+            - clang
 matrix:
     include: 
         - compiler: gcc
@@ -16,7 +16,7 @@ matrix:
             - COMPILER="CC=gcc && CXX=g++"
         - compiler: clang
           env:
-            - COMPILER="CC=clang-8 && CXX=clang++-8"
+            - COMPILER="CC=clang && CXX=clang++"
 
 before_install:
     - eval "${COMPILER}"
