@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.2)
-project(cpp_test C CXX)
+project(cpp_test CXX C)
 
 set(CMAKE_VERBOSE_MAKEFILE ON)
 
