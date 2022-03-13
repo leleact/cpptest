@@ -1,3 +1,3 @@
 cpp test
 --------
-[![Build Status](https://travis-ci.org/leleact/cpptest.svg?branch=master)](https://travis-ci.org/leleact/cpptest)
+[![Build Status](https://img.shields.io/github/workflow/status/leleact/cpptest/Test/master?style=for-the-badge)](https://github.com/leleact/cpptest)
