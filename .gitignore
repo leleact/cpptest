@@ -37,4 +37,5 @@ build/
 *.swp
 compile_commands.json
 .clangd/
+.cache/
 settings.json
