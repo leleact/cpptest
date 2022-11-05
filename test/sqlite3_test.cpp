@@ -81,7 +81,7 @@ TEST(sqlite3, statement) {
   while ((rc = sqlite3_step(statement)) == SQLITE_ROW) {
     const unsigned char *s1 = sqlite3_column_text(statement, 0);
     long i2 = sqlite3_column_int64(statement, 1);
-    SPDLOG_DEBUG("s1 = {}, i2 = {}", s1, i2);
+    SPDLOG_DEBUG("s1 = {}, i2 = {}", fmt::ptr(s1), i2);
   }
 
   sqlite3_finalize(statement);
