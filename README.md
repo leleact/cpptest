@@ -1,3 +1,3 @@
 cpp test
 --------
-[![Build Status](https://img.shields.io/github/workflow/status/leleact/cpptest/Test/master?style=for-the-badge)](https://github.com/leleact/cpptest)
+[![GitHub Workflow Status (branch)](https://img.shields.io/github/actions/workflow/status/leleact/cpptest/test.yml?style=for-the-badge)](https://github.com/leleact/cpptest)

@@ -39,3 +39,4 @@ compile_commands.json
 .clangd/
 .cache/
 settings.json
+/.vs

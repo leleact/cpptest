@@ -12,6 +12,12 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH};${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+if(WIN32)
+    # set(CMAKE_MSVC_RUNTIME_LIBRARY MultiThreaded)
+    set(CMAKE_CXX_FLAGS_RELEASE "/MT") # for static libs
+    set(CMAKE_CXX_FLAGS_DEBUG "/MTd")
+endif(WIN32)
+
 add_subdirectory(third_party/googletest)
 add_subdirectory(third_party/sqlite3)
 add_subdirectory(third_party/header_only)
